@@ -1,8 +1,15 @@
+import personajes.*
+import inicio.*
 import wollok.game.*
-import pepita.*
 
-program juego {
-	game.title("Juego Base")
-	game.addVisual(pepita)
+program abc {
+
+	game.title("Pokemon-atrápalos ya!")
+	game.height(10)
+	game.width(10)
+	game.cellSize(40)
+	game.boardGround("d67c3cbce4d7e9355e8522e10434d76c.jpg")
+	objetosYPersonajes.iniciar()
 	game.start()
+	
 }

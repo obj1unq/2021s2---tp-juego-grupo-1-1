@@ -1,6 +1,19 @@
+import wollok.game.*
+import personajes.*
+import complementos.*
+import inicio.*
 
-test "testX" {
 
-	assert.that(true)
+describe "Pokemon test" {
 
+  method initialize(){
+    game.clear()
+    game.addVisual(charmander)
+  }
+
+  test "Baya sube energia, trampa baja" {
+    trampa.meEncontro(charmander)
+    assert.equals(85,charmander.energia())
+    assert.equals(85,charmander.defensa())
+  }
 }
