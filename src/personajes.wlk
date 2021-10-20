@@ -3,7 +3,7 @@ import inicio.*
 import complementos.*
 
 object charmander {
-	var property position = game.origin()
+	var property position = game.at(1,1)
 	var property energia = 100
 	var property defensa = 100 
 	var direccion = izquierda
@@ -13,13 +13,16 @@ object charmander {
 	
 	
 	method image() {
-		return  (if (self.dir(izquierda)) { "charmander-der.png" } else { "charmander-org.png" })
+		return "charmander-" + self.sufijo() + ".png"
+	}
+	
+	method sufijo() {
+		return (if self.dir(izquierda)) { "der" } else { "izq" })
 	}
 	
 	method dir(dir) {
 		return direccion == dir
 	}
-	
 	
 	method modificarEnergia(elemento) {
 		energia = energia + elemento.energiaQueBrinda()
@@ -27,6 +30,10 @@ object charmander {
 	
 	method modificarDefensa(elemento) {
 		defensa = defensa + elemento.defensaQueBrinda()
+	}
+	
+	method meEncontro(elemento) {
+		return elemento.meEncontro(self)	
 	}
 	
 	method perder() {
@@ -44,13 +51,57 @@ object charmander {
 	method irA(nuevaPosicion) {
 		position = nuevaPosicion
 	}
+	
+	method siguiente(posicion) {}
+	
+	method dispararFuego() {
+		game.addVisual(fuego)
+		fuego.desaparecer()
+	}
 }
 
-object baya {
+class Pokemon {
+	var property position = game.at(9,7)
+	const property image = ""
+	
+	method image() = image
+}
+
+object fuego {
+	var position 
+	
+	method position() {
+		return self.siguiente(charmander.position())
+	}
+	
+	method siguiente(posicion) {
+		return if (charmander.dir(izquierda)) { 
+			posicion.left(1)
+		} else { 
+		   posicion.right(1) 
+		}
+	}
+	
+	method image() { 
+		return "disparoDeFuego-" + charmander.sufijo() + ".png"
+	}
+	
+	method meEncontro(elemento) {
+		elemento.desaparecer()
+	}
+	
+	method desaparecer() {
+		game.schedule(500, { => game.removeVisual(self) })
+	}
+	
+}
+////////////////////////////////////////////////////////////////////////////////////
+class Baya {
 	var property position = game.center()
 	const property energiaQueBrinda = 15
-
-    method image() = "baya.png"
+	const property image = ""
+	
+	method image() = image
     
     method desaparecer() {
     	game.removeVisual(self)
@@ -61,23 +112,24 @@ object baya {
     	pokemon.modificarEnergia(self)
     	game.say(pokemon, pokemon.hablar())
     }
+    
 }
-
-object trampa {
+///////////////////////////////////////////////
+class Trampa {
 	var property position = game.at(6,3)
 	const property energiaQueBrinda = -15
 	const property defensaQueBrinda = -15
+	const property image = ""
 	
-    method image() = "trampa.jpg"
+    method image() = image
     
-    method desaparecer() {
+   method desaparecer() {
     	game.removeVisual(self)
     }
     
     method meEncontro(pokemon) {
-    	 
     	pokemon.modificarEnergia(self)    	
 	    pokemon.modificarDefensa(self)
 	    pokemon.perder()
-    }  
+   }
 }

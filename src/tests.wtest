@@ -12,7 +12,7 @@ describe "Pokemon test" {
   }
 
   test "Baya sube energia, trampa baja" {
-    trampa.meEncontro(charmander)
+    charmander.meEncontro(new Trampa(position = game.at(7,6), image = "trampa.png", energiaQueBrinda = -15, defensaQueBrinda = -15))
     assert.equals(85,charmander.energia())
     assert.equals(85,charmander.defensa())
   }

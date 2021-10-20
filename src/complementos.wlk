@@ -39,3 +39,16 @@ object abajo {
 		return "izq" 
 	}				
 }
+
+class Pared {
+	const property position = game.at(0,0)
+	const property esObstaculo = true
+	
+	
+	
+	method image() = "pared.jpg"
+	
+	method meEncontro(pokemon) {
+		return pokemon.puedeMover(self)
+	}
+}
