@@ -2,7 +2,8 @@ import wollok.game.*
 
 object izquierda {
 	method siguiente(posicion) {
-		return posicion.left(1)
+		const posLeft = posicion.left(1)
+		return game.at(posLeft.x().limitBetween(1,12), posLeft.y())
 	}
 	
 	method sufijo() {
@@ -12,7 +13,8 @@ object izquierda {
 
 object derecha {
 	method siguiente(posicion) {
-		return posicion.right(1)
+		const posRight = posicion.right(1)
+		return game.at(posRight.x().limitBetween(1,12), posRight.y())
 	}
 	
 	method sufijo() {
@@ -23,7 +25,8 @@ object derecha {
 
 object arriba {
 	method siguiente(posicion) {
-		return posicion.up(1)
+		const posUp = posicion.up(1)
+		return game.at(posUp.x(), posUp.y().limitBetween(1,11))
 	}
 	
 	method sufijo() {
@@ -33,18 +36,18 @@ object arriba {
 
 object abajo {
 	method siguiente(posicion) {
-		return posicion.down(1)
+		const posDown = posicion.down(1)
+		return game.at(posDown.x(), posDown.y().limitBetween(1,11))
 	}
 	method sufijo() {
 		return "izq" 
 	}				
 }
 
+
 class Pared {
-	const property position = game.at(0,0)
+	const property position
 	const property esObstaculo = true
-	
-	
 	
 	method image() = "pared.jpg"
 	

@@ -8,7 +8,7 @@ program abc {
 	game.height(13)
 	game.width(14)
 	game.cellSize(50)
-	game.boardGround("mapaVacio.jpg")
+	game.boardGround("mapaConBordes.jpg")
 	objetosYPersonajes.iniciar()
 	game.start()
 	
