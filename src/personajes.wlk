@@ -17,7 +17,7 @@ object charmander {
 	}
 	
 	method sufijo() {
-		return if (self.dir(izquierda)) { "der" } else { "izq" })
+		return if (self.dir(izquierda)) { "der" } else { "izq" }
 	}
 	
 	method dir(dir) {
@@ -43,16 +43,20 @@ object charmander {
 		}
 	}
 	
-	method mover(_direccion) {
-		direccion = _direccion
-		self.irA(_direccion.siguiente(self.position()))
+	method mover(dir) {
+		direccion = dir
+		if (not mapaDeParedes.estanEnElCaminoDe(dir.siguiente(position))) {
+			self.irA(dir.siguiente(position))
+		}
+		
 	}
 	
 	method irA(nuevaPosicion) {
+
 		position = nuevaPosicion
 	}
 	
-	method siguiente(posicion) {}
+//	method siguiente(posicion) {}
 	
 	method dispararFuego() {
 		game.addVisual(fuego)
@@ -63,7 +67,7 @@ object charmander {
 
 class Pokemon {
 	var property position = game.at(9,7)
-	const property image = ""
+	const property image 
 	
 	method image() = image
 	method quemar(elemento) {  }   ///////
@@ -120,6 +124,7 @@ class Baya {
     
     method meEncontro(pokemon) {
     	self.desaparecer()
+    	game.sound("Charmander-happy.mp3").play()
     	pokemon.modificarEnergia(self)
     	game.say(pokemon, pokemon.hablar())
     }
@@ -134,7 +139,7 @@ class Trampa {
 	
     method image() = image
     
-   method desaparecer() {
+    method desaparecer() {
     	game.removeVisual(self)
     }
     
