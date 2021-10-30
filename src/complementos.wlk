@@ -51,4 +51,6 @@ class Pared {
 	method meEncontro(pokemon) {
 		return pokemon.puedeMover(self)
 	}
+	method quemar(elemento) {  }   ///////
+	method desaparecer() {  }   ///////
 }

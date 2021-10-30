@@ -17,7 +17,7 @@ object charmander {
 	}
 	
 	method sufijo() {
-		return (if self.dir(izquierda)) { "der" } else { "izq" })
+		return if (self.dir(izquierda)) { "der" } else { "izq" })
 	}
 	
 	method dir(dir) {
@@ -56,6 +56,7 @@ object charmander {
 	
 	method dispararFuego() {
 		game.addVisual(fuego)
+		game.onCollideDo(fuego, { objeto => fuego.meEncontro(objeto) })  ///////
 		fuego.desaparecer()
 	}
 }
@@ -65,6 +66,8 @@ class Pokemon {
 	const property image = ""
 	
 	method image() = image
+	method quemar(elemento) {  }   ///////
+	method desaparecer() {  }   ///////
 }
 
 object fuego {
@@ -93,8 +96,16 @@ object fuego {
 	method desaparecer() {
 		game.schedule(500, { => game.removeVisual(self) })
 	}
-	
+	method quemar(elemento) {  ///////
+   		elemento.estaEnLaMismaPosicion(self)
+   		elemento.desaparecer()
+   }
+   
+   method estaEnLaMismaPosicion(algo) {  ///////
+		return position == algo.position()
+	}
 }
+
 ////////////////////////////////////////////////////////////////////////////////////
 class Baya {
 	var property position = game.center()
