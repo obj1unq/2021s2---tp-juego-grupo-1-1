@@ -2,7 +2,7 @@ import wollok.game.*
 import personajes.*
 import complementos.*
 
-
+  
 object objetosYPersonajes {
 	
 	method iniciar() {

@@ -8,7 +8,7 @@ object izquierda {
 	
 	method sufijo() {
 		return "izq"
-	}
+	}  
 }
 
 object derecha {

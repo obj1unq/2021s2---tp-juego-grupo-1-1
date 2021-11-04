@@ -132,12 +132,11 @@ class Baya {
 }
 ///////////////////////////////////////////////
 class Trampa {
-	var property position = game.at(6,3)
-	const property energiaQueBrinda = -15
-	const property defensaQueBrinda = -15
-	const property image = ""
+	var property position
+	const property energiaQueBrinda 
+	const property defensaQueBrinda 
+	const property image 
 	
-    method image() = image
     
     method desaparecer() {
     	game.removeVisual(self)
