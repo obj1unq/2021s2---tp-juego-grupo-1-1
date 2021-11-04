@@ -2,36 +2,44 @@ import wollok.game.*
 import personajes.*
 import complementos.*
 
-  
+
+
 object objetosYPersonajes {
 	
 	method iniciar() {
 		game.addVisual(charmander)
+		game.addVisual(pokeball)
 		objetosDelMapa.bayasYTrampas()
 		enemigos.pokemones()
 		mapaDeParedes.agregarVisualParedes()
     	config.confColisiones()
-  		game.showAttributes(charmander)
+  	    game.showAttributes(charmander)
   		config.configurarTeclas()
+  		config.confEventos()
   		game.start()
 	}
 }
 
 object objetosDelMapa {
 	method bayasYTrampas() {
-		game.addVisual(new Baya(position = game.at(6,1), image = "frambu.png", energiaQueBrinda = 20))
-		game.addVisual(new Baya(position = game.at(8,4), image = "frambu.png", energiaQueBrinda = 20))
-		game.addVisual(new Baya(position = game.at(5,6), image = "pinia.png", energiaQueBrinda = 10))
-		game.addVisual(new Baya(position = game.at(11,5), image = "latano.png", energiaQueBrinda = 5))
-		game.addVisual(new Trampa(position = game.at(10,5), image = "trampa.png", energiaQueBrinda = -15, defensaQueBrinda = -15))
-		game.addVisual(new Trampa(position = game.at(1,9), image = "trampa.png", energiaQueBrinda = -15, defensaQueBrinda = -15))
-		game.addVisual(new Trampa(position = game.at(7,6), image = "trampa.png", energiaQueBrinda = -15, defensaQueBrinda = -15))
+		//game.addVisual(new Baya(position = game.at(6,1), image = "frambu.png", energiaQueBrinda = 20))
+		//game.addVisual(new Baya(position = game.at(8,4), image = "frambu.png", energiaQueBrinda = 20))
+		//game.addVisual(new Baya(position = game.at(5,6), image = "pinia.png", energiaQueBrinda = 10))
+		//game.addVisual(new Baya(position = game.at(11,5), image = "latano.png", energiaQueBrinda = 5))
+		game.addVisual(new BayaLatano(position = game.at(11,5)))
+		game.addVisual(new BayaFrambu(position = game.at(7,7)))
+		game.addVisual(new BayaPinia(position = game.at(1,10)))
+		
+		game.addVisual(new Trampa(position = game.at(10,5), energiaQueBrinda = -15, defensaQueBrinda = -15))
+		game.addVisual(new Trampa(position = game.at(1,9), energiaQueBrinda = -15, defensaQueBrinda = -15))
+		game.addVisual(new Trampa(position = game.at(8,7), energiaQueBrinda = -15, defensaQueBrinda = -15))
 	}
 }
 
 object enemigos {
 	method pokemones() {
-		game.addVisual(new Pokemon(image = "gengar.png"))
+		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(9,5), energia = 100))
+		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(7,2), energia = 300))
 	}
 }
 
@@ -48,6 +56,10 @@ object config {
 	
 	method confColisiones() {
 		game.onCollideDo(charmander, { objeto => charmander.meEncontro(objeto) })
+	}
+	method confEventos(){
+		game.onTick(1000, "DANIOENEMIGO", { charmander.recibirDanio() })
+	
 	}
 }
 
@@ -121,5 +133,7 @@ object mapaDeParedes {
 		self.agregarPared(game.at(11,10))
 		self.agregarPared(game.at(12,8))
 		self.agregarPared(game.at(12,10))	
+		self.agregarPared(game.at(10,4))	
 	}
+
 }
