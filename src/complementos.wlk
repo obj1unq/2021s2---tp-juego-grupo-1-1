@@ -50,10 +50,7 @@ class Pared {
 	const property esObstaculo = true
 	
 	method image() = "pared.jpg"
-	
-	method meEncontro(pokemon) {
-		return pokemon.puedeMover(self)
-	}
+
 	method quemar(elemento) {  }   ///////
 	method desaparecer() {  }   ///////
 }

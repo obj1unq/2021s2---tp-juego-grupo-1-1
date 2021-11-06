@@ -79,61 +79,42 @@ object mapaDeParedes {
 		return mapParedes.any({pared => pared.position() == posicionObjetoMovil})
 	}
 	
+	method levantarParedDe(longitud, posicionInicial, direccion) {
+		var posicionActual = posicionInicial
+		self.agregarPared(posicionInicial)
+		(longitud - 1).times{indice =>
+					   			posicionActual = direccion.siguiente(posicionActual)
+					   			self.agregarPared(posicionActual)
+		}
+	}
+	
 	method initialize() {
 		//////// PAREDES INTERNAS
-		self.agregarPared(game.at(1,2))
+		self.levantarParedDe(3, game.at(1,2), derecha)
+		self.levantarParedDe(3, game.at(2,3), arriba)
+		self.levantarParedDe(2, game.at(2,7), arriba)
 		self.agregarPared(game.at(1,8))
-		self.agregarPared(game.at(2,2))
-		self.agregarPared(game.at(3,2))
-		self.agregarPared(game.at(2,3))
-		self.agregarPared(game.at(2,4))
-		self.agregarPared(game.at(2,5))
-		self.agregarPared(game.at(2,7))
-		self.agregarPared(game.at(2,8))
-		self.agregarPared(game.at(2,10))
-		self.agregarPared(game.at(3,10))
-		self.agregarPared(game.at(4,4))
-		self.agregarPared(game.at(4,6))
-		self.agregarPared(game.at(4,7))
-		self.agregarPared(game.at(4,8))
-		self.agregarPared(game.at(4,9))
-		self.agregarPared(game.at(4,10))
-		self.agregarPared(game.at(5,1))
-		self.agregarPared(game.at(5,2))
-		self.agregarPared(game.at(5,3))
-		self.agregarPared(game.at(5,4))
-		self.agregarPared(game.at(5,10))
-		self.agregarPared(game.at(5,11))
-		self.agregarPared(game.at(6,3))
-		self.agregarPared(game.at(6,6))
-		self.agregarPared(game.at(6,7))
+		
+		self.levantarParedDe(2, game.at(4,4), derecha)
+		self.levantarParedDe(3, game.at(5,3), abajo)
+		self.levantarParedDe(3, game.at(6,3), derecha)
 		self.agregarPared(game.at(7,1))
-		self.agregarPared(game.at(7,3))
-		self.agregarPared(game.at(7,5))
-		self.agregarPared(game.at(7,8))
-		self.agregarPared(game.at(7,10))
-		self.agregarPared(game.at(7,11))
-		self.agregarPared(game.at(8,3))
-		self.agregarPared(game.at(8,5))
-		self.agregarPared(game.at(8,6))
-		self.agregarPared(game.at(8,8))
-		self.agregarPared(game.at(9,1))
-		self.agregarPared(game.at(9,6))
-		self.agregarPared(game.at(9,8))
-		self.agregarPared(game.at(9,10))
-		self.agregarPared(game.at(10,1))
-		self.agregarPared(game.at(10,2))
-		self.agregarPared(game.at(10,6))
-		self.agregarPared(game.at(10,8))
-		self.agregarPared(game.at(10,10))
-		self.agregarPared(game.at(11,3))
-		self.agregarPared(game.at(11,4))
-		self.agregarPared(game.at(11,2))
-		self.agregarPared(game.at(11,6))
-		self.agregarPared(game.at(11,10))
-		self.agregarPared(game.at(12,8))
-		self.agregarPared(game.at(12,10))	
-		self.agregarPared(game.at(10,4))	
+		
+		self.levantarParedDe(2, game.at(9,1), derecha)
+		self.levantarParedDe(2, game.at(10,2), derecha)
+		self.levantarParedDe(2, game.at(11,3), arriba)
+		
+		self.levantarParedDe(3, game.at(2,10), derecha)
+		self.levantarParedDe(2, game.at(5,11), abajo)
+		self.levantarParedDe(4, game.at(4,9), abajo)
+		self.levantarParedDe(2, game.at(7,11), abajo)
+		self.levantarParedDe(4, game.at(12,10), izquierda)
+		
+		self.levantarParedDe(4, game.at(7,8), derecha)
+		self.levantarParedDe(2, game.at(6,7), abajo)
+		self.levantarParedDe(2, game.at(7,5), derecha)
+		self.levantarParedDe(4, game.at(8,6), derecha)
+		self.agregarPared(game.at(12,8))	
 	}
 
 }

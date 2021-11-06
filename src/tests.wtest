@@ -11,9 +11,14 @@ describe "Pokemon test" {
     game.addVisual(charmander)
   }
 
-  test "Baya sube energia, trampa baja" {
-    charmander.meEncontro(new Trampa(position = game.at(7,6), image = "trampa.png", energiaQueBrinda = -15, defensaQueBrinda = -15))
-    assert.equals(85,charmander.energia())
-    assert.equals(85,charmander.defensa())
+//  test "Baya sube energia, trampa baja" {
+//    const trampa = new Trampa(position = game.at(7,6), image = "trampa.png", energiaQueBrinda = -15, defensaQueBrinda = -15)
+//    charmander.meEncontro(new Trampa(position = game.at(7,6), image = "trampa.png", energiaQueBrinda = -15, defensaQueBrinda = -15))
+//    assert.equals(85,charmander.energia())
+//    assert.equals(85,charmander.defensa())
+//  }
+  
+  test "d" {
+  	assert.that(true)
   }
 }
