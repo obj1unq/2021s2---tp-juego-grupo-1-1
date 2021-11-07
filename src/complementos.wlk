@@ -47,7 +47,6 @@ object abajo {
 
 class Pared {
 	const property position
-	const property esObstaculo = true
 	
 	method image() = "pared.jpg"
 

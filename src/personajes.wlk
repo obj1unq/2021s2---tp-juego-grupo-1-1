@@ -8,7 +8,7 @@ object charmander {
 	var property energia = 100
 	var property ataque = 40
 	var property defensa = 100 
-	var direccion = izquierda
+	var property direccion = izquierda
 	var property estoyEnCombate = false
 	var puedoPegar = true
 	
@@ -21,10 +21,10 @@ object charmander {
 	}
 	
 	method sufijo() {
-		return if (self.dir(izquierda)) { "der" } else { "izq" }
+		return if (self.miraHacia(izquierda)) { "izq" } else { "der" }
 	}
 	
-	method dir(dir) {
+	method miraHacia(dir) {
 		return direccion == dir
 	}
 	
@@ -49,18 +49,28 @@ object charmander {
 	}
 	
 	method ganar(){
+		puedoPegar = false
 		game.removeVisual(self)
 		game.schedule(4000, {game.stop()})
 	}
 	
 	method perder() {
 		if (not self.estoyVivo()) { 
+			puedoPegar = false
 			game.say(self, self.perdi())
 			game.schedule(1500, {game.stop()})
+			self.validarFinDeNivel()
+		}
+	}
+	
+	method validarFinDeNivel() {
+		if (not self.estoyVivo()) {
+			self.error("Fin")
 		}
 	}
 	
 	method mover(dir) {
+		self.validarFinDeNivel()
 		direccion = dir
 		if (self.puedoMover(dir)) {
 			self.irA(dir.siguiente(position))
@@ -73,7 +83,7 @@ object charmander {
 	}
 	
 	method hayUnObstaculoAl(dir){
-		return mapaDeParedes.estanEnElCaminoDe(dir.siguiente(position)) ||  ( estoyEnCombate || not puedoPegar)
+		return mapaDeParedes.estanEnElCaminoDe(dir.siguiente(position)) || ( estoyEnCombate || not puedoPegar)
 	}
 	
 	method irA(nuevaPosicion) {
@@ -86,7 +96,7 @@ object charmander {
 	method dispararFuego() {
 		if(puedoPegar){
 			self.animacionDeFuego()
-			game.onCollideDo(fuego, { objeto => fuego.meEncontro(objeto) })  ///////
+			game.onCollideDo(fuego, { objeto => fuego.meEncontro(objeto) }) 
 		}
 	}
 	
@@ -159,7 +169,7 @@ object fuego {
 	}
 	
 	method siguiente(posicion) {
-		return if (charmander.dir(izquierda)) { 
+		return if (charmander.miraHacia(izquierda)) { 
 			posicion.left(1)
 		} else { 
 		   posicion.right(1) 
@@ -177,13 +187,12 @@ object fuego {
 	method desaparecer() {
 		game.schedule(500, { => game.removeVisual(self) })
 	}
-	method quemar(elemento) {  ///////
-   	
-   		elemento.desaparecer()
-   }
+	
+	method quemar(elemento) {
+		elemento.desaparecer()
+   	}
    
-   
-   method estaEnLaMismaPosicion(algo) {  ///////
+    method estaEnLaMismaPosicion(algo) {  ///////
 		return position == algo.position()
 	}
 }
@@ -192,7 +201,7 @@ object pokeball{
 	
 	method position() { return game.at(6,1)}
 	
-	method image() {return "pokeball.png"}
+	method image() = "pokeball.png"
 	
 	method meEncontro(pokemon){
 		pokemon.ganar()
@@ -208,7 +217,6 @@ class Baya {
 	
 	method image() 
 	
-    
     method desaparecer() {
     	game.removeVisual(self)
     }
@@ -220,7 +228,7 @@ class Baya {
     }
     
 	method estaFeliz(pokemon) {
-	   game.sound("Charmander-happy.mp3").play()
+		game.sound("Charmander-happy.mp3").play()
     	game.say(pokemon, pokemon.hablar())
 	}
     
@@ -230,7 +238,7 @@ class BayaLatano inherits Baya {
 	
 	override method image() = "latano.png"
 	 
-	 method defensaQueBrinda() = 25
+	method defensaQueBrinda() = 25
 	
 	override method meEncontro(pokemon){
 		super(pokemon)
@@ -241,9 +249,7 @@ class BayaLatano inherits Baya {
 
 class BayaFrambu inherits Baya {
 	
-
 	override method image() = "baya.png"
-	
 	
 	method energiaQueBrinda() = 50
 	
@@ -273,6 +279,7 @@ class Trampa {
 	var property position 
 	const property energiaQueBrinda 
 	const property defensaQueBrinda 
+	
     method image() = "trampa.png"
     
     method desaparecer() {
