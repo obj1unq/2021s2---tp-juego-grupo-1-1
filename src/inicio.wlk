@@ -51,7 +51,7 @@ object config {
 		keyboard.up().onPressDo({ charmander.mover(arriba) })
 		keyboard.down().onPressDo({ charmander.mover(abajo) })
 	    keyboard.f().onPressDo({ charmander.dispararFuego() })
-		
+		keyboard.g().onPressDo({ charmander.atacarConGarra() })
 	}
 	
 	method confColisiones() {
@@ -83,8 +83,8 @@ object mapaDeParedes {
 		var posicionActual = posicionInicial
 		self.agregarPared(posicionInicial)
 		(longitud - 1).times{indice =>
-					   			posicionActual = direccion.siguiente(posicionActual)
-					   			self.agregarPared(posicionActual)
+					   		 posicionActual = direccion.siguiente(posicionActual)
+					   		 self.agregarPared(posicionActual)
 		}
 	}
 	
@@ -115,6 +115,11 @@ object mapaDeParedes {
 		self.levantarParedDe(2, game.at(7,5), derecha)
 		self.levantarParedDe(4, game.at(8,6), derecha)
 		self.agregarPared(game.at(12,8))	
+		
+		self.levantarParedDe(13, game.at(0,0), arriba)
+		self.levantarParedDe(13, game.at(13,0), arriba)
+		self.levantarParedDe(12, game.at(1,12), derecha)
+		self.levantarParedDe(12, game.at(1,0), derecha)
 	}
 
 }

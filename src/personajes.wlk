@@ -10,7 +10,7 @@ object charmander {
 	var property defensa = 100 
 	var property direccion = izquierda
 	var property estoyEnCombate = false
-	var puedoPegar = true
+	var property puedoPegar = true
 	
 	method hablar() = "Char char"
 	method perdi() = "Me quedé sin energia, perdí!"
@@ -87,24 +87,24 @@ object charmander {
 	}
 	
 	method irA(nuevaPosicion) {
-
 		position = nuevaPosicion
 	}
 	
-//	method siguiente(posicion) {}
 	
 	method dispararFuego() {
-		if(puedoPegar){
-			self.animacionDeFuego()
-			game.onCollideDo(fuego, { objeto => fuego.meEncontro(objeto) }) 
+		if(puedoPegar) {
+			const fuego = new Fuego()
+			fuego.animacionDeFuego()
+			game.onCollideDo(fuego, {objeto => fuego.meEncontro(objeto)})
 		}
 	}
 	
-	method animacionDeFuego(){
-		game.addVisual(fuego)
-	    puedoPegar = false
-		game.schedule(600, { puedoPegar=true })
-		fuego.desaparecer()
+	method atacarConGarra() {
+		if(puedoPegar) {
+			const ataqueGarra = new GarraMetal()
+			ataqueGarra.animacionDeGarra()
+			game.onCollideDo(ataqueGarra, {objeto => ataqueGarra.meEncontro(objeto)})
+		}
 	}
 	
 	method danioARecibir(){
@@ -131,7 +131,7 @@ class Pokemon {
 	
 	method image() 
 	
-	method quemar(elemento) { }   ///////
+//	method quemar(elemento) { }   ///////
 	
 	method desaparecer() { 
 		game.say(self,"Entre en combate!")
@@ -156,28 +156,24 @@ class Pokemon {
 		return energia > 0
 	}
 	
-	
-	
 }
 
 
-object fuego {
-	var position 
+class Ataque {
+	
+	method image()
 	
 	method position() {
-		return self.siguiente(charmander.position())
+		const dirAtaque = self.direccionDeAtaque()
+		return dirAtaque.siguiente(charmander.position())
+	}	
+	
+	method direccionDeAtaque() {
+		return if(self.estaEnDireccionInadecuada()) { derecha } else { charmander.direccion() }
 	}
 	
-	method siguiente(posicion) {
-		return if (charmander.miraHacia(izquierda)) { 
-			posicion.left(1)
-		} else { 
-		   posicion.right(1) 
-		}
-	}
-	
-	method image() { 
-		return "disparoDeFuego-" + charmander.sufijo() + ".png"
+	method estaEnDireccionInadecuada() {
+		return charmander.direccion() != izquierda
 	}
 	
 	method meEncontro(elemento) {
@@ -188,14 +184,45 @@ object fuego {
 		game.schedule(500, { => game.removeVisual(self) })
 	}
 	
-	method quemar(elemento) {
-		elemento.desaparecer()
-   	}
+//	method atacar(elemento) {
+//		elemento.desaparecer()
+//   }
    
     method estaEnLaMismaPosicion(algo) {  ///////
-		return position == algo.position()
+		return self.position() == algo.position()
 	}
 }
+
+
+class GarraMetal inherits Ataque {
+	
+	override method image() { 
+		return "garra-metal-" + charmander.sufijo() + ".png"
+	}
+	
+	method animacionDeGarra(){
+		game.addVisual(self)
+	    charmander.puedoPegar(false)
+		game.schedule(600, { charmander.puedoPegar(true) })
+		self.desaparecer()
+	}
+}
+
+
+class Fuego inherits Ataque {
+	
+	override method image() { 
+		return "disparoDeFuego-" + charmander.sufijo() + ".png"
+	}
+	
+	method animacionDeFuego(){
+		game.addVisual(self)
+	    charmander.puedoPegar(false)
+		game.schedule(600, { charmander.puedoPegar(true) })
+		self.desaparecer()
+	}
+}
+
 
 object pokeball{
 	
@@ -292,6 +319,3 @@ class Trampa {
 	    pokemon.perder()
    }
 }
-
-
-
