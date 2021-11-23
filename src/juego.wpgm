@@ -2,14 +2,15 @@ import personajes.*
 import inicio.*
 import wollok.game.*
 
-program abc {
+program juego {
   
 	game.title("Pokemon-atrápalos ya!")
 	game.height(13)
-	game.width(14)
+	game.width(20)
 	game.cellSize(50)
-	game.boardGround("mapaVacio.jpg")
-	objetosYPersonajes.iniciar()
+	game.boardGround("mapaGrande.jpg")
+	//objetosYPersonajes.iniciar()
+	menu.iniciar()
 	game.start()
 	
-}
+} 

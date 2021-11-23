@@ -4,6 +4,7 @@ import complementos.*
 
 
 object charmander {
+	
 	var property position = game.at(1,1)
 	var property energia = 100
 	var property ataque = 40
@@ -116,10 +117,8 @@ object charmander {
 			const calculoDanio = self.danioARecibir().roundUp(0)
 			energia = (energia-calculoDanio).max(0)
 			self.perder()
-		}
-		
-	}
-	
+		}	
+	}	
 }
 
 
@@ -155,7 +154,6 @@ class Pokemon {
 	method estoyVivo(){
 		return energia > 0
 	}
-	
 }
 
 
@@ -226,14 +224,13 @@ class Fuego inherits Ataque {
 
 object pokeball{
 	
-	method position() { return game.at(6,1)}
+	method position() { return game.at(12,3)}
 	
 	method image() = "pokeball.png"
 	
 	method meEncontro(pokemon){
 		pokemon.ganar()
 	}
-	
 }
 
 

@@ -50,6 +50,9 @@ class Pared {
 	method desaparecer() {  }   ///////
 }
 
+class ParedIntermitente inherits Pared {
+	
+}
 
 //object izquierda {
 //	method siguiente(posicion) {

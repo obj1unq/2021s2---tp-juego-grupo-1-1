@@ -3,8 +3,7 @@ import personajes.*
 import complementos.*
 
 
-
-object objetosYPersonajes {
+/*object objetosYPersonajes {
 	
 	method iniciar() {
 		game.addVisual(charmander)
@@ -15,9 +14,59 @@ object objetosYPersonajes {
     	config.confColisiones()
   	    game.showAttributes(charmander)
   		config.configurarTeclas()
-  		config.confEventos()
+  		config.confEventos()  		
   		game.start()
 	}
+}*/
+
+object menu {
+	method iniciar() {
+		game.addVisual(self)
+		config.pasarPantalla()
+		game.start()
+	}
+	
+	method image() {
+		return "portada.jpg"
+	}
+	
+	method position(){
+		return game.origin()
+	}
+}
+
+object instrucciones {
+	
+	method iniciar() {
+		game.clear()
+		game.addVisual(self)
+		config.comenzarJuego()
+	}
+	
+	method image() {
+		return "instrucciones.jpg"
+	}
+	
+	method position(){
+		return game.origin()
+	}
+}
+
+object juego {
+	
+	method iniciar() {
+		game.clear()
+		game.addVisual(charmander)
+		game.addVisual(pokeball)
+		objetosDelMapa.bayasYTrampas()
+		enemigos.pokemones()
+		mapaDeParedes.agregarVisualParedes()
+    	config.confColisiones()
+  	    game.showAttributes(charmander)
+  		config.configurarTeclas()
+  		config.confEventos()  			
+	}
+	
 }
 
 object objetosDelMapa {
@@ -43,8 +92,8 @@ object enemigos {
 	}
 }
 
-object config {
-
+object config { 
+	
 	method configurarTeclas() {
 		keyboard.left().onPressDo( { charmander.mover(izquierda)  })
 		keyboard.right().onPressDo({ charmander.mover(derecha) })
@@ -57,12 +106,19 @@ object config {
 	method confColisiones() {
 		game.onCollideDo(charmander, { objeto => charmander.meEncontro(objeto) })
 	}
+	
 	method confEventos(){
 		game.onTick(1000, "DANIOENEMIGO", { charmander.recibirDanio() })
+	}
 	
+	method pasarPantalla() { 
+		keyboard.enter().onPressDo({instrucciones.iniciar()})
+	}
+	
+	method comenzarJuego() { 
+		keyboard.enter().onPressDo({juego.iniciar()})
 	}
 }
-
 
 object mapaDeParedes {
 	const property mapParedes = #{}
@@ -85,11 +141,199 @@ object mapaDeParedes {
 		(longitud - 1).times{indice =>
 					   		 posicionActual = direccion.siguiente(posicionActual)
 					   		 self.agregarPared(posicionActual)
-		}
+					   		 }
 	}
 	
 	method initialize() {
+		//////// BORDES
+		self.levantarParedDe(13, game.at(0,0), arriba)
+		self.levantarParedDe(13, game.at(19,0), arriba)
+		self.levantarParedDe(19, game.at(1,12), derecha)
+		self.levantarParedDe(19, game.at(1,0), derecha)
+		/////// LABERINTO
+		laberintos.labCero()
+   	}
+}
+
+object laberintos {
+	
+	method labCero() {
 		//////// PAREDES INTERNAS
+
+		mapaDeParedes.agregarPared(game.at(13,1))	
+		
+		mapaDeParedes.levantarParedDe(5, game.at(1,2), derecha)
+		
+		mapaDeParedes.agregarPared(game.at(13,1))
+		mapaDeParedes.levantarParedDe(7, game.at(7,2), derecha)//
+		mapaDeParedes.levantarParedDe(4, game.at(8,7), derecha)
+		mapaDeParedes.levantarParedDe(4, game.at(12,4), derecha)//
+		mapaDeParedes.levantarParedDe(2, game.at(11,6), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(11,3), arriba)//
+		mapaDeParedes.levantarParedDe(3, game.at(9,4), arriba)//
+		mapaDeParedes.levantarParedDe(5, game.at(7,3), arriba)
+		
+		
+		mapaDeParedes.levantarParedDe(3, game.at(2,4), derecha)
+		mapaDeParedes.levantarParedDe(5, game.at(1,6), derecha)////
+		mapaDeParedes.levantarParedDe(3, game.at(6,9), derecha)
+		mapaDeParedes.levantarParedDe(6, game.at(3,5), arriba)/////
+		mapaDeParedes.levantarParedDe(4, game.at(5,7), arriba)
+		mapaDeParedes.agregarPared(game.at(2,10))
+		mapaDeParedes.agregarPared(game.at(1,8))
+		
+		mapaDeParedes.levantarParedDe(5, game.at(7,11), derecha)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(10,9), derecha)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(14,6), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(13,8), arriba)
+		
+		mapaDeParedes.levantarParedDe(4, game.at(15,2), derecha)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(17,4), derecha)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(16,6), derecha)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(16,8), derecha)
+		mapaDeParedes.agregarPared(game.at(17,9))
+		
+		mapaDeParedes.levantarParedDe(2, game.at(15,10), arriba)
+		
+		mapaDeParedes.agregarPared(game.at(17,11))
+	}
+	
+	method labUno() {
+		mapaDeParedes.levantarParedDe(3, game.at(2,1), arriba)
+		mapaDeParedes.levantarParedDe(6, game.at(2,5), arriba)
+		
+		mapaDeParedes.levantarParedDe(4, game.at(4,2), arriba)
+		mapaDeParedes.levantarParedDe(5, game.at(4,7), arriba)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(6,1), arriba)
+		mapaDeParedes.levantarParedDe(4, game.at(6,4), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(6,9), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(8,1), arriba)
+		mapaDeParedes.levantarParedDe(5, game.at(8,5), arriba)
+		
+		mapaDeParedes.levantarParedDe(5, game.at(10,2), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(10,8), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(12,2), arriba)
+		mapaDeParedes.levantarParedDe(2, game.at(12,6), arriba)
+		mapaDeParedes.levantarParedDe(2, game.at(12,10), arriba)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(14,1), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(14,4), arriba)
+		mapaDeParedes.levantarParedDe(2, game.at(14,9), arriba)
+		
+		mapaDeParedes.levantarParedDe(4, game.at(16,2), arriba)
+		mapaDeParedes.levantarParedDe(2, game.at(16,10), arriba)
+		
+		mapaDeParedes.levantarParedDe(4, game.at(18,4), arriba)
+		
+		mapaDeParedes.levantarParedDe(8, game.at(11,8), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(17,2), derecha)
+		
+		mapaDeParedes.agregarPared(game.at(3,5))
+		mapaDeParedes.agregarPared(game.at(5,4))
+		mapaDeParedes.agregarPared(game.at(7,7))
+		mapaDeParedes.agregarPared(game.at(8,11))
+		mapaDeParedes.agregarPared(game.at(9,5))
+		mapaDeParedes.agregarPared(game.at(11,3))
+		mapaDeParedes.agregarPared(game.at(13,4))
+		mapaDeParedes.agregarPared(game.at(16,7))
+		mapaDeParedes.agregarPared(game.at(15,5))
+		mapaDeParedes.agregarPared(game.at(17,10))
+	}
+	
+	method labDos() {
+		mapaDeParedes.levantarParedDe(10, game.at(2,1), arriba)
+		mapaDeParedes.levantarParedDe(7, game.at(4,2), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(6,4), arriba)
+		mapaDeParedes.levantarParedDe(5, game.at(15,4), arriba)
+		mapaDeParedes.levantarParedDe(9, game.at(17,2), arriba)
+		
+		mapaDeParedes.levantarParedDe(12, game.at(5,2), derecha)
+		mapaDeParedes.levantarParedDe(8, game.at(7,4), derecha)
+		mapaDeParedes.levantarParedDe(7, game.at(7,6), derecha)
+		mapaDeParedes.levantarParedDe(10, game.at(5,8), derecha)
+		mapaDeParedes.levantarParedDe(14, game.at(3,10), derecha)
+	}
+	
+	method labTres() {
+		mapaDeParedes.levantarParedDe(3, game.at(2,2), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(4,3), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(2,6), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(2,4), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(2,8), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(4,9), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(6,4), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(2,10), arriba)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(6,1), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(6,6), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(8,2), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(6,10), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(6,7), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(12,2), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(8,8), arriba)
+		
+		mapaDeParedes.levantarParedDe(9, game.at(10,2), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(12,6), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(14,3), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(12,8), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(12,4), arriba)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(16,4), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(14,9), arriba)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(16,6), derecha)
+		mapaDeParedes.levantarParedDe(2, game.at(12,10), arriba)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(16,10), derecha)
+		
+		mapaDeParedes.levantarParedDe(2, game.at(16,7), arriba)
+		mapaDeParedes.levantarParedDe(2, game.at(16,1), arriba)		
+	}
+	
+	method labCuatro() {
+		mapaDeParedes.levantarParedDe(9, game.at(2,2), arriba)
+		mapaDeParedes.levantarParedDe(2, game.at(4,1), arriba)
+		mapaDeParedes.levantarParedDe(2, game.at(4,4), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(6,2), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(8,3), arriba)
+		mapaDeParedes.levantarParedDe(5, game.at(10,2), arriba)
+		mapaDeParedes.levantarParedDe(2, game.at(12,1), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(12,4), arriba)
+		mapaDeParedes.levantarParedDe(4, game.at(14,1), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(16,2), arriba)
+		mapaDeParedes.levantarParedDe(3, game.at(17,8), arriba)
+		
+		mapaDeParedes.levantarParedDe(3, game.at(3,6), derecha)
+		mapaDeParedes.levantarParedDe(3, game.at(7,6), derecha)
+		mapaDeParedes.levantarParedDe(6, game.at(12,6), derecha)
+		mapaDeParedes.levantarParedDe(12, game.at(5,8), derecha)
+		mapaDeParedes.levantarParedDe(14, game.at(3,10), derecha)
+		
+		mapaDeParedes.agregarPared(game.at(8,1))
+		mapaDeParedes.agregarPared(game.at(17,3))
+		mapaDeParedes.agregarPared(game.at(3,8))
+		mapaDeParedes.agregarPared(game.at(18,1))
+	}
+}
+
+
+/*
 		self.levantarParedDe(3, game.at(1,2), derecha)
 		self.levantarParedDe(3, game.at(2,3), arriba)
 		self.levantarParedDe(2, game.at(2,7), arriba)
@@ -120,6 +364,4 @@ object mapaDeParedes {
 		self.levantarParedDe(13, game.at(13,0), arriba)
 		self.levantarParedDe(12, game.at(1,12), derecha)
 		self.levantarParedDe(12, game.at(1,0), derecha)
-	}
-
-}
+		*/

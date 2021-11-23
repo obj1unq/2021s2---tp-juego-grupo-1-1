@@ -6,16 +6,20 @@ import inicio.*
 
 describe "Pokemon test" {
 
+  const trampaEnCamino = new Trampa(position = game.at(7,6), energiaQueBrinda = -15, defensaQueBrinda = -15)
+  
   method initialize(){
     game.clear()
     game.addVisual(charmander)
   }
-
+  
+  test "Charmander está en el laberinto" {
+		assert.equals(charmander.position(), game.at(1,1))
+  }
+	
   test "Baya sube energia, trampa baja" {
-    const trampaEnCamino = new Trampa(position = game.at(7,6), energiaQueBrinda = -15, defensaQueBrinda = -15)
     charmander.meEncontro(trampaEnCamino)
     assert.equals(85,charmander.energia())
     assert.equals(85,charmander.defensa())
   }
-  
 }
