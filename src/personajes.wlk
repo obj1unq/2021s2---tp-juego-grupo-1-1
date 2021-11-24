@@ -83,13 +83,21 @@ object charmander {
 		return self.estoyVivo() && not self.hayUnObstaculoAl(dir)  
 	}
 	
-	method hayUnObstaculoAl(dir){
-		return mapaDeParedes.estanEnElCaminoDe(dir.siguiente(position)) || ( estoyEnCombate || not puedoPegar)
-	}
-	
 	method irA(nuevaPosicion) {
 		position = nuevaPosicion
 	}
+	
+	method hayUnObstaculoAl(dir){
+		return self.hayObstaculoAlFrente(dir) || ( estoyEnCombate || not puedoPegar)
+	}
+	
+	method hayObstaculoAlFrente(dir) {
+		var obstaculos = game.getObjectsIn(dir.siguiente(position))
+		obstaculos = obstaculos.filter({obstaculo => obstaculo.obstruyeElCamino()})
+		return not obstaculos.isEmpty()
+	}
+	
+	
 	
 	
 	method dispararFuego() {
@@ -129,6 +137,8 @@ class Pokemon {
 	const property image
 	
 	method image() 
+	
+	method obstruyeElCamino() = false
 	
 //	method quemar(elemento) { }   ///////
 	
@@ -228,6 +238,8 @@ object pokeball{
 	
 	method image() = "pokeball.png"
 	
+	method obstruyeElCamino() = false
+	
 	method meEncontro(pokemon){
 		pokemon.ganar()
 	}
@@ -240,6 +252,8 @@ class Baya {
 	var property position
 	
 	method image() 
+	
+	method obstruyeElCamino() = false
 	
     method desaparecer() {
     	game.removeVisual(self)
@@ -305,6 +319,8 @@ class Trampa {
 	const property defensaQueBrinda 
 	
     method image() = "trampa.png"
+    
+    method obstruyeElCamino() = false
     
     method desaparecer() {
     	game.removeVisual(self)

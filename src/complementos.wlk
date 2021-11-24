@@ -48,6 +48,8 @@ class Pared {
 
 	method quemar(elemento) {  }   ///////
 	method desaparecer() {  }   ///////
+	
+	method obstruyeElCamino() = true
 }
 
 class ParedIntermitente inherits Pared {
