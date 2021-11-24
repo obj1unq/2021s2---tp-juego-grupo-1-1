@@ -59,8 +59,9 @@ object juego {
 		game.addVisual(charmander)
 		game.addVisual(pokeball)
 		objetosDelMapa.bayasYTrampas()
+		mapaDeParedes.levantarBordes()
+		laberintos.labCero()
 		enemigos.pokemones()
-		mapaDeParedes.agregarVisualParedes()
     	config.confColisiones()
   	    game.showAttributes(charmander)
   		config.configurarTeclas()
@@ -123,48 +124,90 @@ object config {
 object mapaDeParedes {
 	const property mapParedes = #{}
 	
-	method agregarPared(posicion) {
-		mapParedes.add(new Pared(position = posicion))
+	// en vez de crearPared nombre antes era agregarPared
+	method crearPared(posicion) {
+		const parednueva = new Pared(position = posicion)
+		game.addVisual(parednueva)
 	}
 	
 	method agregarVisualParedes() {
 		mapParedes.forEach({ pared => game.addVisual(pared) })
 	}
 	
-	method estanEnElCaminoDe(posicionObjetoMovil) {
-		return mapParedes.any({pared => pared.position() == posicionObjetoMovil})
-	}
-	
 	method levantarParedDe(longitud, posicionInicial, direccion) {
 		var posicionActual = posicionInicial
-		self.agregarPared(posicionInicial)
+		self.crearPared(posicionInicial)
 		(longitud - 1).times{indice =>
 					   		 posicionActual = direccion.siguiente(posicionActual)
-					   		 self.agregarPared(posicionActual)
+					   		 self.crearPared(posicionActual)
 					   		 }
 	}
 	
-	method initialize() {
-		//////// BORDES
+	method levantarBordes() {
 		self.levantarParedDe(13, game.at(0,0), arriba)
 		self.levantarParedDe(13, game.at(19,0), arriba)
 		self.levantarParedDe(19, game.at(1,12), derecha)
 		self.levantarParedDe(19, game.at(1,0), derecha)
-		/////// LABERINTO
-		laberintos.labCero()
-   	}
+	}
+	
+//	method initialize() {
+//		//////// BORDES
+//		self.levantarParedDe(13, game.at(0,0), arriba)
+//		self.levantarParedDe(13, game.at(19,0), arriba)
+//		self.levantarParedDe(19, game.at(1,12), derecha)
+//		self.levantarParedDe(19, game.at(1,0), derecha)
+//		/////// LABERINTO
+//		laberintos.labCero()
+//   }
 }
+
+
+//COPIA POR SI ACASO
+//object mapaDeParedes {
+//	const property mapParedes = #{}
+//	
+//	method agregarPared(posicion) {
+//		mapParedes.add(new Pared(position = posicion))
+//	}
+//	
+//	method agregarVisualParedes() {
+//		mapParedes.forEach({ pared => game.addVisual(pared) })
+//	}
+//	
+//	method estanEnElCaminoDe(posicionObjetoMovil) {
+//		return mapParedes.any({pared => pared.position() == posicionObjetoMovil})
+//	}
+//	
+//	method levantarParedDe(longitud, posicionInicial, direccion) {
+//		var posicionActual = posicionInicial
+//		self.agregarPared(posicionInicial)
+//		(longitud - 1).times{indice =>
+//					   		 posicionActual = direccion.siguiente(posicionActual)
+//					   		 self.agregarPared(posicionActual)
+//					   		 }
+//	}
+//	
+//	method initialize() {
+//		//////// BORDES
+//		self.levantarParedDe(13, game.at(0,0), arriba)
+//		self.levantarParedDe(13, game.at(19,0), arriba)
+//		self.levantarParedDe(19, game.at(1,12), derecha)
+//		self.levantarParedDe(19, game.at(1,0), derecha)
+//		/////// LABERINTO
+//		laberintos.labCero()
+//   	}
+//}
 
 object laberintos {
 	
 	method labCero() {
 		//////// PAREDES INTERNAS
 
-		mapaDeParedes.agregarPared(game.at(13,1))	
+		mapaDeParedes.crearPared(game.at(13,1))	
 		
 		mapaDeParedes.levantarParedDe(5, game.at(1,2), derecha)
 		
-		mapaDeParedes.agregarPared(game.at(13,1))
+		mapaDeParedes.crearPared(game.at(13,1))
 		mapaDeParedes.levantarParedDe(7, game.at(7,2), derecha)//
 		mapaDeParedes.levantarParedDe(4, game.at(8,7), derecha)
 		mapaDeParedes.levantarParedDe(4, game.at(12,4), derecha)//
@@ -179,8 +222,8 @@ object laberintos {
 		mapaDeParedes.levantarParedDe(3, game.at(6,9), derecha)
 		mapaDeParedes.levantarParedDe(6, game.at(3,5), arriba)/////
 		mapaDeParedes.levantarParedDe(4, game.at(5,7), arriba)
-		mapaDeParedes.agregarPared(game.at(2,10))
-		mapaDeParedes.agregarPared(game.at(1,8))
+		mapaDeParedes.crearPared(game.at(2,10))
+		mapaDeParedes.crearPared(game.at(1,8))
 		
 		mapaDeParedes.levantarParedDe(5, game.at(7,11), derecha)
 		
@@ -196,11 +239,11 @@ object laberintos {
 		mapaDeParedes.levantarParedDe(2, game.at(16,6), derecha)
 		
 		mapaDeParedes.levantarParedDe(3, game.at(16,8), derecha)
-		mapaDeParedes.agregarPared(game.at(17,9))
+		mapaDeParedes.crearPared(game.at(17,9))
 		
 		mapaDeParedes.levantarParedDe(2, game.at(15,10), arriba)
 		
-		mapaDeParedes.agregarPared(game.at(17,11))
+		mapaDeParedes.crearPared(game.at(17,11))
 	}
 	
 	method labUno() {
@@ -236,16 +279,16 @@ object laberintos {
 		mapaDeParedes.levantarParedDe(8, game.at(11,8), derecha)
 		mapaDeParedes.levantarParedDe(2, game.at(17,2), derecha)
 		
-		mapaDeParedes.agregarPared(game.at(3,5))
-		mapaDeParedes.agregarPared(game.at(5,4))
-		mapaDeParedes.agregarPared(game.at(7,7))
-		mapaDeParedes.agregarPared(game.at(8,11))
-		mapaDeParedes.agregarPared(game.at(9,5))
-		mapaDeParedes.agregarPared(game.at(11,3))
-		mapaDeParedes.agregarPared(game.at(13,4))
-		mapaDeParedes.agregarPared(game.at(16,7))
-		mapaDeParedes.agregarPared(game.at(15,5))
-		mapaDeParedes.agregarPared(game.at(17,10))
+		mapaDeParedes.crearPared(game.at(5,4))
+		mapaDeParedes.crearPared(game.at(3,5))
+		mapaDeParedes.crearPared(game.at(7,7))
+		mapaDeParedes.crearPared(game.at(8,11))
+		mapaDeParedes.crearPared(game.at(9,5))
+		mapaDeParedes.crearPared(game.at(11,3))
+		mapaDeParedes.crearPared(game.at(13,4))
+		mapaDeParedes.crearPared(game.at(16,7))
+		mapaDeParedes.crearPared(game.at(15,5))
+		mapaDeParedes.crearPared(game.at(17,10))
 	}
 	
 	method labDos() {
@@ -325,10 +368,10 @@ object laberintos {
 		mapaDeParedes.levantarParedDe(12, game.at(5,8), derecha)
 		mapaDeParedes.levantarParedDe(14, game.at(3,10), derecha)
 		
-		mapaDeParedes.agregarPared(game.at(8,1))
-		mapaDeParedes.agregarPared(game.at(17,3))
-		mapaDeParedes.agregarPared(game.at(3,8))
-		mapaDeParedes.agregarPared(game.at(18,1))
+		mapaDeParedes.crearPared(game.at(8,1))
+		mapaDeParedes.crearPared(game.at(17,3))
+		mapaDeParedes.crearPared(game.at(3,8))
+		mapaDeParedes.crearPared(game.at(18,1))
 	}
 }
 
