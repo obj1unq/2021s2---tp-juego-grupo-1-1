@@ -46,15 +46,14 @@ class Pared {
 	
 	method image() = "pared.jpg"
 
-	method quemar(elemento) {  }   ///////
-	method desaparecer() {  }   ///////
+	method quemar(elemento) { }   ///////
+	method desaparecer() { }   ///////
 	
 	method obstruyeElCamino() = true
+	
+	method meEncontro(pokemon) { }
 }
 
-class ParedIntermitente inherits Pared {
-	
-}
 
 //object izquierda {
 //	method siguiente(posicion) {

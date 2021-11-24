@@ -97,9 +97,6 @@ object charmander {
 		return not obstaculos.isEmpty()
 	}
 	
-	
-	
-	
 	method dispararFuego() {
 		if(puedoPegar) {
 			const fuego = new Fuego()
@@ -126,10 +123,12 @@ object charmander {
 			energia = (energia-calculoDanio).max(0)
 			self.perder()
 		}	
-	}	
+	}
+	
+	method reiniciarPosicion() {
+		self.position(game.at(1,1))	
+	}	 
 }
-
-
 
 class Pokemon {
 	var property position 
@@ -231,18 +230,20 @@ class Fuego inherits Ataque {
 	}
 }
 
+class Pokeball {
 
-object pokeball{
-	
-	method position() { return game.at(12,3)}
+	const property position
+	const property nivelActual 
 	
 	method image() = "pokeball.png"
 	
 	method obstruyeElCamino() = false
 	
 	method meEncontro(pokemon){
-		pokemon.ganar()
+		nivelActual.pasarDeLaberinto()
 	}
+	
+	method desaparecer() {}
 }
 
 
