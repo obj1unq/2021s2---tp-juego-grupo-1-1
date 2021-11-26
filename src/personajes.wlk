@@ -72,8 +72,9 @@ object charmander {
 	
 	method mover(dir) {
 		self.validarFinDeNivel()
-		direccion = dir
+
 		if (self.puedoMover(dir)) {
+			direccion = dir
 			self.irA(dir.siguiente(position))
 		}
 		
@@ -198,6 +199,17 @@ class Ataque {
     method estaEnLaMismaPosicion(algo) {  ///////
 		return self.position() == algo.position()
 	}
+	
+	method atacar(){
+		game.addVisual(self)
+	    charmander.puedoPegar(false)
+		game.schedule(600, { charmander.puedoPegar(true) })
+		self.desaparecer()
+	}
+	
+	method obstruyeElCamino(){
+		return false
+	}
 }
 
 
@@ -208,10 +220,7 @@ class GarraMetal inherits Ataque {
 	}
 	
 	method animacionDeGarra(){
-		game.addVisual(self)
-	    charmander.puedoPegar(false)
-		game.schedule(600, { charmander.puedoPegar(true) })
-		self.desaparecer()
+		self.atacar()
 	}
 }
 
@@ -223,10 +232,7 @@ class Fuego inherits Ataque {
 	}
 	
 	method animacionDeFuego(){
-		game.addVisual(self)
-	    charmander.puedoPegar(false)
-		game.schedule(600, { charmander.puedoPegar(true) })
-		self.desaparecer()
+		self.atacar()
 	}
 }
 
@@ -235,15 +241,21 @@ class Pokeball {
 	const property position
 	const property nivelActual 
 	
-	method image() = "pokeball.png"
+	method image() { 
+		return "pokeball.png"
+	}
 	
-	method obstruyeElCamino() = false
+	method obstruyeElCamino() {
+		return false
+	}
 	
 	method meEncontro(pokemon){
 		nivelActual.pasarDeLaberinto()
 	}
 	
-	method desaparecer() {}
+	method desaparecer() {
+		
+	}
 }
 
 
@@ -254,14 +266,15 @@ class Baya {
 	
 	method image() 
 	
-	method obstruyeElCamino() = false
+	method obstruyeElCamino() {
+		return false
+	} 
 	
     method desaparecer() {
     	game.removeVisual(self)
     }
     
     method meEncontro(pokemon) {
-    	
     	self.estaFeliz(pokemon)
     	self.desaparecer()
     }
@@ -319,7 +332,9 @@ class Trampa {
 	const property energiaQueBrinda 
 	const property defensaQueBrinda 
 	
-    method image() = "trampa.png"
+    method image() {
+    	return"trampa.png"
+    }
     
     method obstruyeElCamino() = false
     

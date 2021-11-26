@@ -38,7 +38,6 @@ object instrucciones {
 
 class Laberinto {
 	const property nivelActual
-	const property pokeball
 	
 	method iniciar() {
 		charmander.reiniciarPosicion()
@@ -55,11 +54,13 @@ class Laberinto {
 }
 
 object config { 
-	const property labCero = new Laberinto(nivelActual  = laberintoCero, pokeball = new Pokeball(position = game.at(12,3), nivelActual = laberintoCero))
-	const property labUno = new Laberinto(nivelActual  = laberintoUno, pokeball = new Pokeball(position = game.at(18,3), nivelActual = laberintoUno))
-	const property labDos = new Laberinto(nivelActual  = laberintoDos, pokeball = new Pokeball(position = game.at(12,3), nivelActual = laberintoDos))
-	const property labTres = new Laberinto(nivelActual  = laberintoTres, pokeball = new Pokeball(position = game.at(12,3), nivelActual = laberintoTres))
-	const property labCuatro = new Laberinto(nivelActual  = laberintoCuatro, pokeball = new Pokeball(position = game.at(12,3), nivelActual = laberintoCuatro))
+
+	const property labCero = new Laberinto(nivelActual  = laberintoCero)
+	const property labUno = new Laberinto(nivelActual  = laberintoUno)
+	const property labDos = new Laberinto(nivelActual  = laberintoDos)
+	const property labTres = new Laberinto(nivelActual  = laberintoTres)
+	const property labCuatro = new Laberinto(nivelActual  = laberintoCuatro)
+	
 	
 	method configurarTeclas() {
 		keyboard.left().onPressDo( { charmander.mover(izquierda)  })
