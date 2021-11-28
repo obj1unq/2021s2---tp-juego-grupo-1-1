@@ -524,4 +524,4 @@ object laberintoCuatro {
 		mapaDeParedes.crearPared(game.at(3,8))
 		mapaDeParedes.crearPared(game.at(18,1))
 	}
-}
+} 
