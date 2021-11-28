@@ -6,7 +6,7 @@ import complementos.*
 object menu {
 	method iniciar() {
 		game.addVisual(self)
-		config.pasarPantalla()
+		config.pasarPantalla(instrucciones)
 	}
 	
 	method image() {
@@ -23,7 +23,7 @@ object instrucciones {
 	method iniciar() {
 		game.clear()
 		game.addVisual(self)
-		config.comenzarJuego()
+		config.pasarPantalla(config.labCero())
 	}
 	
 	method image() {
@@ -77,13 +77,10 @@ object config {
 		game.onTick(1000, "DANIOENEMIGO", { charmander.recibirDanio() })
 	}
 	
-	method pasarPantalla() { 
-		keyboard.enter().onPressDo({instrucciones.iniciar()})
+	method pasarPantalla(nivel) { 
+		keyboard.enter().onPressDo({nivel.iniciar()})
 	}
 	
-	method comenzarJuego() {
-		keyboard.enter().onPressDo({labCero.iniciar()})
-	}
 }
 	
 object mapaDeParedes {
@@ -148,10 +145,10 @@ object laberintoCero {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(14,3), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(17,10), energia = 100))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(12,5), energia = 300))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(7,10), energia = 300))
+		game.addVisual(new Gengar(position = game.at(14,3), energia = 100))
+		game.addVisual(new Gengar(position = game.at(17,10), energia = 100))
+		game.addVisual(new Machamp(position = game.at(12,5), energia = 300))
+		game.addVisual(new Machamp(position = game.at(7,10), energia = 300))
 		
 		//////// PAREDES INTERNAS
 		mapaDeParedes.crearPared(game.at(13,1))	
@@ -227,14 +224,14 @@ object laberintoUno {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(3,1), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(6,8), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(14,3), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(13,9), energia = 100))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(4,6), energia = 300))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(8,4), energia = 300))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(11,1), energia = 300))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(10,7), energia = 300))
+		game.addVisual(new Gengar(position = game.at(3,1), energia = 100))
+		game.addVisual(new Gengar(position = game.at(6,8), energia = 100))
+		game.addVisual(new Gengar(position = game.at(14,3), energia = 100))
+		game.addVisual(new Gengar(position = game.at(13,9), energia = 100))
+		game.addVisual(new Machamp(position = game.at(4,6), energia = 300))
+		game.addVisual(new Machamp(position = game.at(8,4), energia = 300))
+		game.addVisual(new Machamp(position = game.at(11,1), energia = 300))
+		game.addVisual(new Machamp(position = game.at(10,7), energia = 300))
 		
 		mapaDeParedes.levantarParedDe(3, game.at(2,1), arriba)
 		mapaDeParedes.levantarParedDe(6, game.at(2,5), arriba)
@@ -312,16 +309,16 @@ object laberintoDos {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(11,1), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(12,1), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(2,11), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(7,7), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(17,1), energia = 100))
-		game.addVisual(new Pokemon(image = "gengarD.png", position = game.at(5,9), energia = 100))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(10,5), energia = 300))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(11,5), energia = 300))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(14,3), energia = 300))
-		game.addVisual(new Pokemon(image = "Machamp.png", position = game.at(14,11), energia = 300))
+		game.addVisual(new Gengar(position = game.at(11,1), energia = 100))
+		game.addVisual(new Gengar(position = game.at(12,1), energia = 100))
+		game.addVisual(new Gengar(position = game.at(2,11), energia = 100))
+		game.addVisual(new Gengar(position = game.at(7,7), energia = 100))
+		game.addVisual(new Gengar(position = game.at(17,1), energia = 100))
+		game.addVisual(new Gengar(position = game.at(5,9), energia = 100))
+		game.addVisual(new Machamp(position = game.at(10,5), energia = 300))
+		game.addVisual(new Machamp(position = game.at(11,5), energia = 300))
+		game.addVisual(new Machamp(position = game.at(14,3), energia = 300))
+		game.addVisual(new Machamp(position = game.at(14,11), energia = 300))
 		
 		mapaDeParedes.levantarParedDe(10, game.at(2,1), arriba)
 		mapaDeParedes.levantarParedDe(7, game.at(4,2), arriba)
@@ -426,75 +423,3 @@ object laberintoCuatro {
 //		laberintos.labCero()
 //   }
 
-
-
-//COPIA POR SI ACASO
-//object mapaDeParedes {
-//	const property mapParedes = #{}
-//	
-//	method agregarPared(posicion) {
-//		mapParedes.add(new Pared(position = posicion))
-//	}
-//	
-//	method agregarVisualParedes() {
-//		mapParedes.forEach({ pared => game.addVisual(pared) })
-//	}
-//	
-//	method estanEnElCaminoDe(posicionObjetoMovil) {
-//		return mapParedes.any({pared => pared.position() == posicionObjetoMovil})
-//	}
-//	
-//	method levantarParedDe(longitud, posicionInicial, direccion) {
-//		var posicionActual = posicionInicial
-//		self.agregarPared(posicionInicial)
-//		(longitud - 1).times{indice =>
-//					   		 posicionActual = direccion.siguiente(posicionActual)
-//					   		 self.agregarPared(posicionActual)
-//					   		 }
-//	}
-//	
-//	method initialize() {
-//		//////// BORDES
-//		self.levantarParedDe(13, game.at(0,0), arriba)
-//		self.levantarParedDe(13, game.at(19,0), arriba)
-//		self.levantarParedDe(19, game.at(1,12), derecha)
-//		self.levantarParedDe(19, game.at(1,0), derecha)
-//		/////// LABERINTO
-//		laberintos.labCero()
-//   	}
-//}
-
-
-
-/*
-		self.levantarParedDe(3, game.at(1,2), derecha)
-		self.levantarParedDe(3, game.at(2,3), arriba)
-		self.levantarParedDe(2, game.at(2,7), arriba)
-		self.agregarPared(game.at(1,8))
-		
-		self.levantarParedDe(2, game.at(4,4), derecha)
-		self.levantarParedDe(3, game.at(5,3), abajo)
-		self.levantarParedDe(3, game.at(6,3), derecha)
-		self.agregarPared(game.at(7,1))
-		
-		self.levantarParedDe(2, game.at(9,1), derecha)
-		self.levantarParedDe(2, game.at(10,2), derecha)
-		self.levantarParedDe(2, game.at(11,3), arriba)
-		
-		self.levantarParedDe(3, game.at(2,10), derecha)
-		self.levantarParedDe(2, game.at(5,11), abajo)
-		self.levantarParedDe(4, game.at(4,9), abajo)
-		self.levantarParedDe(2, game.at(7,11), abajo)
-		self.levantarParedDe(4, game.at(12,10), izquierda)
-		
-		self.levantarParedDe(4, game.at(7,8), derecha)
-		self.levantarParedDe(2, game.at(6,7), abajo)
-		self.levantarParedDe(2, game.at(7,5), derecha)
-		self.levantarParedDe(4, game.at(8,6), derecha)
-		self.agregarPared(game.at(12,8))	
-		
-		self.levantarParedDe(13, game.at(0,0), arriba)
-		self.levantarParedDe(13, game.at(13,0), arriba)
-		self.levantarParedDe(12, game.at(1,12), derecha)
-		self.levantarParedDe(12, game.at(1,0), derecha)
-		*/

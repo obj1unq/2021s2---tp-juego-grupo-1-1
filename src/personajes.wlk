@@ -72,8 +72,8 @@ object charmander {
 	
 	method mover(dir) {
 //		self.validarFinDeNivel()
+		direccion = dir
 		if (self.puedoMover(dir)) {
-			direccion = dir
 			self.irA(dir.siguiente(position))
 		}
 		
@@ -133,7 +133,8 @@ object charmander {
 class Pokemon {
 	var property position 
 	var property energia 
-	const property image
+	var property direccion = #{derecha, izquierda}.anyOne()
+	var property estoyEnCombate = false
 	
 	method image() 
 	
@@ -162,6 +163,76 @@ class Pokemon {
 	
 	method estoyVivo(){
 		return energia > 0
+	}
+	
+	// LOOP MOVIMIENTO
+	
+	method moverHastaEntrarEnCombate() {
+		game.onTick(800, self.nombreMovimiento(), {self.moverSigPosicion()
+												   self.detenerseYLuchar()})
+	}
+	
+	method nombreMovimiento() {
+		return "Movimiento Pokemon" + self.identity().toString()
+	}
+	
+	// MOVIMIENTOS
+	
+	method moverSigPosicion() {
+		if(self.meEncuentroEnemigo()){
+			estoyEnCombate = true
+			charmander.estoyEnCombate(true)
+		} else {
+			self.avanzarUnPaso()
+		}
+	}
+	
+	method avanzarUnPaso() {
+		if(self.hayObstaculoAlFrente()) {
+			direccion = direccion.opuesta()
+		}
+		position = direccion.siguiente(position)
+	}
+	
+	method meEncuentroEnemigo() {
+		const alFrente = game.getObjectsIn(direccion.siguiente(position))
+		return alFrente.contains(charmander)
+	}
+	
+	method hayObstaculoAlFrente() {
+		var obstaculos = game.getObjectsIn(direccion.siguiente(position))
+		obstaculos = obstaculos.filter({obstaculo => obstaculo.obstruyeElCamino()})
+		return not obstaculos.isEmpty()
+	}
+	
+	method detenerseYLuchar() {
+		if(estoyEnCombate) { game.removeTickEvent(self.nombreMovimiento()) }
+	}
+	
+	method sufijo() {
+		return direccion.sufijo()
+	}
+}
+
+class Gengar inherits Pokemon {
+	
+	override method image() {
+		return "gengar-" + self.sufijo() + ".png"
+	}
+	
+	method initialize() {
+		self.moverHastaEntrarEnCombate()
+	}
+}
+
+class Machamp inherits Pokemon {
+	
+	override method image() {
+		return "machamp-" + self.sufijo() + ".png"
+	}
+	
+	method initialize() {
+		self.moverHastaEntrarEnCombate()
 	}
 }
 
@@ -248,7 +319,7 @@ class Pokeball {
 		return false
 	}
 	
-	method meEncontro(pokemon){
+	method meEncontro(objeto){
 		nivelActual.pasarDeLaberinto()
 	}
 	
