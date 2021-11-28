@@ -2,16 +2,12 @@ Buscando al entrenador perdido.
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
 
-Charmander se ha alejado de su entrenador y se ha perdido en el bosque, ahora debe encontrarlo. Para ello deberá sortear trampas y distintos enemigos, ¿puedes ayudarlo?
-
-## Capturas 
+## Juego
 
 ![portada charmander](https://user-images.githubusercontent.com/89812633/143786061-264f23d9-ca7c-4029-88b9-5e4561460333.jpg)
 
+Charmander se ha alejado de su entrenador y se ha perdido en el bosque, ahora debe encontrarlo. Para ello deberá sortear trampas y distintos enemigos, ¿puedes ayudarlo?
 
 Teclas:
 
