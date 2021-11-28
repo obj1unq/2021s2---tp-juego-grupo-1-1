@@ -7,7 +7,6 @@ object menu {
 	method iniciar() {
 		game.addVisual(self)
 		config.pasarPantalla()
-		game.start()
 	}
 	
 	method image() {
@@ -49,7 +48,6 @@ class Laberinto {
   		config.confEventos() 
   		config.confColisiones()
   		nivelActual.levantarLaberinto()
-  		nivelActual.terminarNivel()
 	}
 }
 

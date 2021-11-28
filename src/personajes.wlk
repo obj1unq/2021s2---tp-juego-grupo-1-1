@@ -71,8 +71,7 @@ object charmander {
 	}
 	
 	method mover(dir) {
-		self.validarFinDeNivel()
-
+//		self.validarFinDeNivel()
 		if (self.puedoMover(dir)) {
 			direccion = dir
 			self.irA(dir.siguiente(position))
