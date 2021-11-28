@@ -14,8 +14,6 @@ object charmander {
 	var property puedoPegar = true
 	
 	method hablar() = "Char char"
-	method perdi() = "Me quedé sin energia, perdí!"
-	
 	
 	method image() {
 		return "charmander-" + self.sufijo() + ".png"
@@ -50,28 +48,23 @@ object charmander {
 	}
 	
 	method ganar(){
-		puedoPegar = false
-		game.removeVisual(self)
-		game.schedule(4000, {game.stop()})
+		self.terminar("Gané")
 	}
 	
 	method perder() {
 		if (not self.estoyVivo()) { 
-			puedoPegar = false
-			game.say(self, self.perdi())
-			game.schedule(1500, {game.stop()})
-			self.validarFinDeNivel()
+			self.terminar("Perdí")
 		}
 	}
 	
-	method validarFinDeNivel() {
-		if (not self.estoyVivo()) {
-			self.error("Fin")
-		}
+	method terminar(mensaje){
+		    puedoPegar = false
+			game.say(self, mensaje)
+			game.removeTickEvent("DANIOENEMIGO")
+			game.schedule(3000, {game.stop()})
 	}
 	
 	method mover(dir) {
-//		self.validarFinDeNivel()
 		direccion = dir
 		if (self.puedoMover(dir)) {
 			self.irA(dir.siguiente(position))
@@ -98,20 +91,39 @@ object charmander {
 	}
 	
 	method dispararFuego() {
-		if(puedoPegar) {
+		    self.validarGolpe()
 			const fuego = new Fuego()
 			fuego.animacionDeFuego()
 			game.onCollideDo(fuego, {objeto => fuego.meEncontro(objeto)})
-		}
+		
 	}
 	
 	method atacarConGarra() {
-		if(puedoPegar) {
+		    self.validarGolpe()
 			const ataqueGarra = new GarraMetal()
 			ataqueGarra.animacionDeGarra()
 			game.onCollideDo(ataqueGarra, {objeto => ataqueGarra.meEncontro(objeto)})
+	}
+	
+	method validarGolpe(){
+		self.validarEstado()
+	    if(!puedoPegar){
+			self.error("No puedo atacar tan seguido")
 		}
 	}
+	
+	method validarEstado(){
+			if(!self.estoyVivo()){
+			self.error("Estoy muerto")
+		}
+	}
+	/* 
+	method validarGolpe(){
+	    if(!self.estoyVivo || !puedoPegar){
+			self.error("No puedo atacar")
+		}
+	}
+	*/
 	
 	method danioARecibir(){
 		return (500..1000).anyOne() / self.defensa()
