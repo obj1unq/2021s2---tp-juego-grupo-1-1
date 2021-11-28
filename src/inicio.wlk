@@ -68,7 +68,7 @@ object config {
 	    keyboard.f().onPressDo({ charmander.dispararFuego() })
 		keyboard.g().onPressDo({ charmander.atacarConGarra() })
 		keyboard.space().onPressDo({game.say(charmander, charmander.decirEstado())})
-	}
+	} 
 	
 	method confColisiones() {
 		game.onCollideDo(charmander, { objeto => charmander.meEncontro(objeto) })
@@ -157,10 +157,10 @@ object laberintoCero {
 		game.addVisual(new Gengar(position = game.at(17,10), energia = 100))
 		game.addVisual(new Machamp(position = game.at(12,5), energia = 300))
 		game.addVisual(new Machamp(position = game.at(7,10), energia = 300))*/
-		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 100, pokemon = "gengar-"))
-		game.addVisual(new PokemonGuardia(position = game.at(17,10), energia = 100, pokemon = "gengar-"))
-		game.addVisual(new PokemonGuardia(position = game.at(12,5), energia = 300, pokemon = "machamp-"))
-		game.addVisual(new PokemonGuardia(position = game.at(7,10), energia = 300, pokemon = "machamp-")) 
+		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 100, image = "gengar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(17,10), energia = 100, image = "gengar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(12,5), energia = 300, image = "machamp-"))
+		game.addVisual(new PokemonGuardia(position = game.at(7,10), energia = 300, image = "machamp-")) 
 		
 		//////// PAREDES INTERNAS
 		mapaDeParedes.crearPared(game.at(13,1))	
@@ -243,14 +243,14 @@ object laberintoUno {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new PokemonGuardia(position = game.at(3,1), energia = 100, pokemon = "bulbasaur-"))
+		game.addVisual(new PokemonGuardia(position = game.at(3,1), energia = 100, image = "bulbasaur-"))
 		//game.addVisual(new PokemonGuardia(position = game.at(6,8), energia = 100, pokemon = "bulbasaur-"))
-		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 100, pokemon = "bulbasaur-"))
-		game.addVisual(new PokemonGuardia(position = game.at(13,9), energia = 100, pokemon = "bulbasaur-"))
-		game.addVisual(new PokemonGuardia(position = game.at(4,6), energia = 300, pokemon = "magmar-"))
-		game.addVisual(new PokemonGuardia(position = game.at(8,4), energia = 300, pokemon = "magmar-"))
-		game.addVisual(new PokemonGuardia(position = game.at(11,1), energia = 300, pokemon = "magmar-"))
-		game.addVisual(new PokemonGuardia(position = game.at(10,7), energia = 300, pokemon = "magmar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 100, image = "bulbasaur-"))
+		game.addVisual(new PokemonGuardia(position = game.at(13,9), energia = 100, image = "bulbasaur-"))
+		game.addVisual(new PokemonGuardia(position = game.at(4,6), energia = 300, image = "magmar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(8,4), energia = 300, image = "magmar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(11,1), energia = 300, image = "magmar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(10,7), energia = 300, image = "magmar-"))
 		
 		mapaDeParedes.levantarParedDe(3, game.at(2,1), arriba)
 		mapaDeParedes.levantarParedDe(6, game.at(2,5), arriba)
@@ -337,12 +337,12 @@ object laberintoDos {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new PokemonGuardia(position = game.at(11,1), energia = 100, pokemon = "kadabra-"))
-		game.addVisual(new PokemonGuardia(position = game.at(2,11), energia = 100, pokemon = "kadabra-"))
-		game.addVisual(new PokemonGuardia(position = game.at(7,7), energia = 100, pokemon = "kadabra-"))
-		game.addVisual(new PokemonGuardia(position = game.at(5,9), energia = 100, pokemon = "kadabra-"))
-		game.addVisual(new PokemonGuardia(position = game.at(10,5), energia = 300, pokemon = "kadabra-"))
-		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 300, pokemon = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(11,1), energia = 100, image = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(2,11), energia = 100, image = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(7,7), energia = 100, image = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(5,9), energia = 100, image = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(10,5), energia = 300, image = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 300, image = "kadabra-"))
 		//game.addVisual(new Pokemon(position = game.at(11,5), energia = 300, image = "lapras-izq"))
 		game.addVisual(new Pokemon(position = game.at(13,1), energia = 100, image = "lapras-izq.png")) 
 		game.addVisual(new Pokemon(position = game.at(12,1), energia = 100, image = "kadabra-izq.png"))
@@ -399,12 +399,12 @@ object laberintoTres {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new PokemonGuardia(position = game.at(8,1), energia = 300, pokemon = "magnemite-"))
-		game.addVisual(new PokemonGuardia(position = game.at(16,3), energia = 300, pokemon = "scyther-"))
-		game.addVisual(new PokemonGuardia(position = game.at(12,7), energia = 300, pokemon = "magnemite-"))
-		game.addVisual(new PokemonGuardia(position = game.at(2,7), energia = 300, pokemon = "scyther-"))
-		game.addVisual(new PokemonGuardia(position = game.at(16,9), energia = 300, pokemon = "magnemite-"))
-		game.addVisual(new PokemonGuardia(position = game.at(6,11), energia = 300, pokemon = "scyther-"))
+		game.addVisual(new PokemonGuardia(position = game.at(8,1), energia = 300, image = "magnemite-"))
+		game.addVisual(new PokemonGuardia(position = game.at(16,3), energia = 300, image = "scyther-"))
+		game.addVisual(new PokemonGuardia(position = game.at(12,7), energia = 300, image = "magnemite-"))
+		game.addVisual(new PokemonGuardia(position = game.at(2,7), energia = 300, image = "scyther-"))
+		game.addVisual(new PokemonGuardia(position = game.at(16,9), energia = 300, image = "magnemite-"))
+		game.addVisual(new PokemonGuardia(position = game.at(6,11), energia = 300, image = "scyther-"))
 		game.addVisual(new Pokemon(position = game.at(11,3), energia = 100, image = "scyther-izq.png"))
 		game.addVisual(new Pokemon(position = game.at(4,5), energia = 100, image = "magnemite-izq.png"))
 		game.addVisual(new Pokemon(position = game.at(15,5), energia = 100, image = "scyther-izq.png"))
@@ -489,9 +489,9 @@ object laberintoCuatro {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new PokemonGuardia(position = game.at(4,11), energia = 300, pokemon = "onix-"))
-		game.addVisual(new PokemonGuardia(position = game.at(11,9), energia = 300, pokemon = "jigglypuff-"))
-		game.addVisual(new PokemonGuardia(position = game.at(14,5), energia = 300, pokemon = "onix-"))
+		game.addVisual(new PokemonGuardia(position = game.at(4,11), energia = 300, image = "onix-"))
+		game.addVisual(new PokemonGuardia(position = game.at(11,9), energia = 300, image = "jigglypuff-"))
+		game.addVisual(new PokemonGuardia(position = game.at(14,5), energia = 300, image = "onix-"))
 		game.addVisual(new Pokemon(position = game.at(6,5), energia = 100, image = "onix-izq.png"))
 		game.addVisual(new Pokemon(position = game.at(7,7), energia = 100, image = "jigglypuff-izq.png"))
 		game.addVisual(new Pokemon(position = game.at(7,9), energia = 100, image = "onix-izq.png"))
@@ -525,14 +525,3 @@ object laberintoCuatro {
 		mapaDeParedes.crearPared(game.at(18,1))
 	}
 }
-
-//	method initialize() {  //metodos de mapaDeParedes, me molestaban por eso los guardé acá abajo xd
-//		//////// BORDES
-//		self.levantarParedDe(13, game.at(0,0), arriba)
-//		self.levantarParedDe(13, game.at(19,0), arriba)
-//		self.levantarParedDe(19, game.at(1,12), derecha)
-//		self.levantarParedDe(19, game.at(1,0), derecha)
-//		/////// LABERINTO
-//		laberintos.labCero()
-//   }
-

@@ -14,6 +14,7 @@ object charmander {
 	var property puedoPegar = true
 	
 	method hablar() = "Char char"
+	
 
 	method image() {
 		return "charmander-" + self.sufijo() + ".png"
@@ -174,13 +175,26 @@ class Pokemon {
 	}	
 	method perder(){
 		if (not self.estoyVivo()){
-			game.removeVisual(self)
-			charmander.estoyEnCombate(false)
+				charmander.estoyEnCombate(false)
+				game.removeVisual(self)
+				
 		}
 	}
 	
 	method estoyVivo(){
 		return energia > 0
+	}
+}
+
+
+class PokemonGuardia inherits Pokemon {
+	
+	method sufijo() {
+		return direccion.sufijo()
+	}
+	
+	override method image(){
+		return image + self.sufijo() + ".png"
 	}
 	
 	// LOOP MOVIMIENTO
@@ -195,7 +209,7 @@ class Pokemon {
 	}
 	
 	// MOVIMIENTOS
-	
+	 
 	method moverSigPosicion() {
 		if(self.meEncuentroEnemigo()){
 			estoyEnCombate = true
@@ -224,21 +238,9 @@ class Pokemon {
 	}
 	
 	method detenerseYLuchar() {
-		if(estoyEnCombate) { game.removeTickEvent(self.nombreMovimiento()) }
+		if(estoyEnCombate) { game.removeTickEvent(self.nombreMovimiento())  }
 	}
 	
-	method sufijo() {
-		return direccion.sufijo()
-	}
-}
-
-class PokemonGuardia inherits Pokemon {
-	
-	const pokemon 
-	
-	override method image() {
-		return pokemon + self.sufijo() + ".png"
-	}
 	
 	method initialize() {
 		self.moverHastaEntrarEnCombate()
@@ -352,92 +354,4 @@ object entrenador {
 	method desaparecer() {
 		
 	}
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-
-class Baya {
-	var property position
-	
-	method image() 
-	
-	method obstruyeElCamino() {
-		return false
-	} 
-	
-    method desaparecer() {
-    	game.removeVisual(self)
-    }
-    
-    method meEncontro(pokemon) {
-    	self.estaFeliz(pokemon)
-    	self.desaparecer()
-    }
-    
-	method estaFeliz(pokemon) {
-		game.sound("Charmander-happy.mp3").play()
-    	game.say(pokemon, pokemon.hablar())
-	}
-    
-}
-
-class BayaLatano inherits Baya {
-	
-	override method image() = "latano.png"
-	 
-	method defensaQueBrinda() = 25
-	
-	override method meEncontro(pokemon){
-		super(pokemon)
-		pokemon.modificarDefensa(self)
-	}
-	
-}
-
-class BayaFrambu inherits Baya {
-	
-	override method image() = "baya.png"
-	
-	method energiaQueBrinda() = 50
-	
-	override method meEncontro(pokemon){
-		super(pokemon)
-		pokemon.modificarEnergia(self)	
-	}
-}
-
-class BayaPinia inherits Baya {
-	
-	override method image() = "pinia.png"
-	
-	method ataqueQueBrinda() = 30
-	
-	override method meEncontro(pokemon){
-		super(pokemon)
-		pokemon.modificarAtaque(self)
-	}
-}
-
-///////////////////////////////////////////////
-
-class Trampa {
-	var property position 
-	const property energiaQueBrinda 
-	const property defensaQueBrinda 
-	
-    method image() {
-    	return"trampa.png"
-    }
-    
-    method obstruyeElCamino() = false
-    
-    method desaparecer() {
-    	game.removeVisual(self)
-    }
-    
-    method meEncontro(pokemon) {
-    	pokemon.modificarEnergia(self)    	
-	    pokemon.modificarDefensa(self)
-	    pokemon.perder()
-   }
 }
