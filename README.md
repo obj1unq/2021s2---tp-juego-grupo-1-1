@@ -1,4 +1,4 @@
-# Nombre del juego (<- borrar y completar)
+Buscando al entrenador perdido.
 
 ## Equipo de desarrollo
 
@@ -6,14 +6,35 @@
 - Persona
 - etc.
 
-## Capturas
+Charmander se ha alejado de su entrenador y se ha perdido en el bosque, ahora debe encontrarlo. Para ello deberá sortear trampas y distintos enemigos, ¿puedes ayudarlo?
 
-(agregar)
+## Capturas (agregar)
 
-## Reglas de Juego / Instrucciones
 
-(Escribirlas)
+Instrucciones:
 
+Teclas:
+
+↑,↓,←,→ : Mueve a Charmander por el laberinto.
+F: Disparo de fuego.
+G: Ataque de garra.
+
+¡Cuidado!:
+
+Evita que los pókemon te atrapen. Entra en combate con ellos para eliminarlos atacándolos, o esquívalos.
+También debes tener cuidado con las trampas.
+
+Recarga energía:
+
+No olvides comer bayas después de una pelea o de caer en una trampa.
+
+Avanza de Laberinto:
+
+Busca las pokeball para pasar al siguiente nivel.
+
+¡Encontré a mi entrenador!:
+
+Encuentra al entrenador y reúne a Charmander con él para ganar el juego.
 
 ## Otros
 
