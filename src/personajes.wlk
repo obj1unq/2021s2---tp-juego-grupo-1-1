@@ -117,6 +117,12 @@ object charmander {
 		return (500..1000).anyOne() / self.defensa()
 	}
 	
+	method decirEstado(){
+		return "Energia:" + energia.toString() +
+			   " Ataque:"  + ataque.toString() +
+			   " Defensa:" + defensa.toString()
+	}
+	
 	method recibirDanio() {	
 		if(estoyEnCombate){
 			const calculoDanio = self.danioARecibir().roundUp(0)

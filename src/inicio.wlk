@@ -41,13 +41,13 @@ class Laberinto {
 	method iniciar() {
 		charmander.reiniciarPosicion()
 		game.clear()
-		game.addVisual(charmander)
-  	    game.showAttributes(charmander)
   	    mapaDeParedes.levantarBordes()
+  		nivelActual.levantarLaberinto()
+  	    game.addVisual(charmander)
+  		game.showAttributes(charmander)
   		config.configurarTeclas()
   		config.confEventos() 
   		config.confColisiones()
-  		nivelActual.levantarLaberinto()
 	}
 }
 
@@ -67,6 +67,7 @@ object config {
 		keyboard.down().onPressDo({ charmander.mover(abajo) })
 	    keyboard.f().onPressDo({ charmander.dispararFuego() })
 		keyboard.g().onPressDo({ charmander.atacarConGarra() })
+		keyboard.space().onPressDo({game.say(charmander, charmander.decirEstado())})
 	}
 	
 	method confColisiones() {
