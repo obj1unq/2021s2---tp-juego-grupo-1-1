@@ -15,8 +15,7 @@ object charmander {
 	
 	method hablar() = "Char char"
 	method perdi() = "Me quedé sin energia, perdí!"
-	
-	
+		
 	method image() {
 		return "charmander-" + self.sufijo() + ".png"
 	}
@@ -135,8 +134,9 @@ class Pokemon {
 	var property energia 
 	var property direccion = #{derecha, izquierda}.anyOne()
 	var property estoyEnCombate = false
+	const property image
 	
-	method image() 
+//	method image() 
 	
 	method obstruyeElCamino() = false
 	
@@ -213,7 +213,7 @@ class Pokemon {
 		return direccion.sufijo()
 	}
 }
-
+/*
 class Gengar inherits Pokemon {
 	
 	override method image() {
@@ -234,8 +234,20 @@ class Machamp inherits Pokemon {
 	method initialize() {
 		self.moverHastaEntrarEnCombate()
 	}
-}
+}*/
 
+class PokemonGuardia inherits Pokemon {
+	
+	const pokemon 
+	
+	override method image() {
+		return pokemon + self.sufijo() + ".png"
+	}
+	
+	method initialize() {
+		self.moverHastaEntrarEnCombate()
+	}
+}
 
 class Ataque {
 	
@@ -282,7 +294,6 @@ class Ataque {
 	}
 }
 
-
 class GarraMetal inherits Ataque {
 	
 	override method image() { 
@@ -293,7 +304,6 @@ class GarraMetal inherits Ataque {
 		self.atacar()
 	}
 }
-
 
 class Fuego inherits Ataque {
 	
@@ -328,6 +338,25 @@ class Pokeball {
 	}
 }
 
+object entrenador {
+	const property position = game.at(16,9)
+	
+	method image() { 
+		return "ash.png"
+	}
+	
+	method obstruyeElCamino() {
+		return false
+	}
+	
+	method meEncontro(pokemon){
+		pokemon.ganar()
+	}
+	
+	method desaparecer() {
+		
+	}
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -392,8 +421,6 @@ class BayaPinia inherits Baya {
 		pokemon.modificarAtaque(self)
 	}
 }
-
-
 
 ///////////////////////////////////////////////
 

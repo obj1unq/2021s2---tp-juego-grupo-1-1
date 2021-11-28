@@ -53,7 +53,6 @@ object abajo {
 	}		
 }
 
-
 class Pared {
 	const property position
 	
@@ -66,5 +65,3 @@ class Pared {
 	
 	method meEncontro(pokemon) { }
 }
-
-

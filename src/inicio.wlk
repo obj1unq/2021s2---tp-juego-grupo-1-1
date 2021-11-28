@@ -123,16 +123,23 @@ object laberintoCero {
 		game.addVisual(new Pokeball(position = game.at(12,3), nivelActual = self))
 		
 		//////// BAYAS Y TRAMPAS
-		game.addVisual(new BayaFrambu(position = game.at(12,1)))
-		game.addVisual(new BayaFrambu(position = game.at(18,1)))
 		game.addVisual(new BayaFrambu(position = game.at(6,11)))
+		game.addVisual(new BayaFrambu(position = game.at(8,5)))
+		game.addVisual(new BayaFrambu(position = game.at(12,1)))
+		game.addVisual(new BayaFrambu(position = game.at(13,11)))
+		game.addVisual(new BayaFrambu(position = game.at(18,1)))
 		
+		game.addVisual(new BayaLatano(position = game.at(1,5)))
+		game.addVisual(new BayaLatano(position = game.at(8,4)))
 		game.addVisual(new BayaLatano(position = game.at(18,9)))
 		game.addVisual(new BayaLatano(position = game.at(18,10)))
 		game.addVisual(new BayaLatano(position = game.at(18,11)))
 		
-		game.addVisual(new BayaPinia(position = game.at(8,3)))
 		game.addVisual(new BayaPinia(position = game.at(1,7)))
+		game.addVisual(new BayaPinia(position = game.at(1,3)))
+		game.addVisual(new BayaPinia(position = game.at(2,7)))
+		game.addVisual(new BayaPinia(position = game.at(8,3)))
+		game.addVisual(new BayaPinia(position = game.at(8,6)))
 		
 		game.addVisual(new Trampa(position = game.at(5,1), energiaQueBrinda = -15, defensaQueBrinda = -15))
 		game.addVisual(new Trampa(position = game.at(3,3), energiaQueBrinda = -15, defensaQueBrinda = -15))
@@ -145,10 +152,14 @@ object laberintoCero {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new Gengar(position = game.at(14,3), energia = 100))
+		/*game.addVisual(new Gengar(position = game.at(14,3), energia = 100))
 		game.addVisual(new Gengar(position = game.at(17,10), energia = 100))
 		game.addVisual(new Machamp(position = game.at(12,5), energia = 300))
-		game.addVisual(new Machamp(position = game.at(7,10), energia = 300))
+		game.addVisual(new Machamp(position = game.at(7,10), energia = 300))*/
+		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 100, pokemon = "gengar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(17,10), energia = 100, pokemon = "gengar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(12,5), energia = 300, pokemon = "machamp-"))
+		game.addVisual(new PokemonGuardia(position = game.at(7,10), energia = 300, pokemon = "machamp-")) 
 		
 		//////// PAREDES INTERNAS
 		mapaDeParedes.crearPared(game.at(13,1))	
@@ -209,14 +220,21 @@ object laberintoUno {
 		game.addVisual(new BayaFrambu(position = game.at(7,6)))
 		game.addVisual(new BayaFrambu(position = game.at(13,11)))
 		game.addVisual(new BayaFrambu(position = game.at(17,11)))
+		game.addVisual(new BayaFrambu(position = game.at(5,9)))
+		game.addVisual(new BayaFrambu(position = game.at(7,9)))
 		
 		game.addVisual(new BayaLatano(position = game.at(5,5)))
+		game.addVisual(new BayaLatano(position = game.at(7,1)))
+		game.addVisual(new BayaLatano(position = game.at(7,5)))
+		game.addVisual(new BayaLatano(position = game.at(10,11)))
 		game.addVisual(new BayaLatano(position = game.at(18,10)))
+		game.addVisual(new BayaLatano(position = game.at(7,13)))
 		
+		game.addVisual(new BayaPinia(position = game.at(2,11)))
+		game.addVisual(new BayaPinia(position = game.at(13,1)))
+		game.addVisual(new BayaPinia(position = game.at(17,1)))
 		game.addVisual(new BayaPinia(position = game.at(18,11)))
 		game.addVisual(new BayaPinia(position = game.at(18,1)))
-		game.addVisual(new BayaPinia(position = game.at(17,1)))
-		game.addVisual(new BayaPinia(position = game.at(13,1)))
 		
 		game.addVisual(new Trampa(position = game.at(3,4), energiaQueBrinda = -25, defensaQueBrinda = -10))
 		game.addVisual(new Trampa(position = game.at(7,8), energiaQueBrinda = -15, defensaQueBrinda = -15))
@@ -224,14 +242,14 @@ object laberintoUno {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new Gengar(position = game.at(3,1), energia = 100))
-		game.addVisual(new Gengar(position = game.at(6,8), energia = 100))
-		game.addVisual(new Gengar(position = game.at(14,3), energia = 100))
-		game.addVisual(new Gengar(position = game.at(13,9), energia = 100))
-		game.addVisual(new Machamp(position = game.at(4,6), energia = 300))
-		game.addVisual(new Machamp(position = game.at(8,4), energia = 300))
-		game.addVisual(new Machamp(position = game.at(11,1), energia = 300))
-		game.addVisual(new Machamp(position = game.at(10,7), energia = 300))
+		game.addVisual(new PokemonGuardia(position = game.at(3,1), energia = 100, pokemon = "bulbasaur-"))
+		//game.addVisual(new PokemonGuardia(position = game.at(6,8), energia = 100, pokemon = "bulbasaur-"))
+		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 100, pokemon = "bulbasaur-"))
+		game.addVisual(new PokemonGuardia(position = game.at(13,9), energia = 100, pokemon = "bulbasaur-"))
+		game.addVisual(new PokemonGuardia(position = game.at(4,6), energia = 300, pokemon = "magmar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(8,4), energia = 300, pokemon = "magmar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(11,1), energia = 300, pokemon = "magmar-"))
+		game.addVisual(new PokemonGuardia(position = game.at(10,7), energia = 300, pokemon = "magmar-"))
 		
 		mapaDeParedes.levantarParedDe(3, game.at(2,1), arriba)
 		mapaDeParedes.levantarParedDe(6, game.at(2,5), arriba)
@@ -290,15 +308,24 @@ object laberintoDos {
 		game.addVisual(new BayaFrambu(position = game.at(1,4)))
 		game.addVisual(new BayaFrambu(position = game.at(3,4)))
 		game.addVisual(new BayaFrambu(position = game.at(16,6)))
+		game.addVisual(new BayaFrambu(position = game.at(1,6)))
+		game.addVisual(new BayaFrambu(position = game.at(1,7)))
+		game.addVisual(new BayaFrambu(position = game.at(18,9)))
 		
 		game.addVisual(new BayaLatano(position = game.at(5,5)))
 		game.addVisual(new BayaLatano(position = game.at(16,7)))
 		game.addVisual(new BayaLatano(position = game.at(18,9)))
+		game.addVisual(new BayaLatano(position = game.at(18,8)))
+		game.addVisual(new BayaLatano(position = game.at(18,7)))
+		game.addVisual(new BayaLatano(position = game.at(18,6)))
 		
 		game.addVisual(new BayaPinia(position = game.at(5,6)))
 		game.addVisual(new BayaPinia(position = game.at(6,9)))
 		game.addVisual(new BayaPinia(position = game.at(18,1)))
 		game.addVisual(new BayaPinia(position = game.at(10,1)))
+		game.addVisual(new BayaPinia(position = game.at(16,7)))
+		game.addVisual(new BayaPinia(position = game.at(16,6)))
+		game.addVisual(new BayaPinia(position = game.at(16,5)))
 		
 		game.addVisual(new Trampa(position = game.at(5,4), energiaQueBrinda = -25, defensaQueBrinda = -10))
 		game.addVisual(new Trampa(position = game.at(8,5), energiaQueBrinda = -15, defensaQueBrinda = -15))
@@ -309,16 +336,16 @@ object laberintoDos {
 		
 		//////// ENEMIGOS
 		
-		game.addVisual(new Gengar(position = game.at(11,1), energia = 100))
-		game.addVisual(new Gengar(position = game.at(12,1), energia = 100))
-		game.addVisual(new Gengar(position = game.at(2,11), energia = 100))
-		game.addVisual(new Gengar(position = game.at(7,7), energia = 100))
-		game.addVisual(new Gengar(position = game.at(17,1), energia = 100))
-		game.addVisual(new Gengar(position = game.at(5,9), energia = 100))
-		game.addVisual(new Machamp(position = game.at(10,5), energia = 300))
-		game.addVisual(new Machamp(position = game.at(11,5), energia = 300))
-		game.addVisual(new Machamp(position = game.at(14,3), energia = 300))
-		game.addVisual(new Machamp(position = game.at(14,11), energia = 300))
+		game.addVisual(new PokemonGuardia(position = game.at(11,1), energia = 100, pokemon = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(2,11), energia = 100, pokemon = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(7,7), energia = 100, pokemon = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(5,9), energia = 100, pokemon = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(10,5), energia = 300, pokemon = "kadabra-"))
+		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 300, pokemon = "kadabra-"))
+		//game.addVisual(new Pokemon(position = game.at(11,5), energia = 300, image = "lapras-izq"))
+		game.addVisual(new Pokemon(position = game.at(13,1), energia = 100, image = "lapras-izq.png")) 
+		game.addVisual(new Pokemon(position = game.at(12,1), energia = 100, image = "kadabra-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(14,11), energia = 100, image = "lapras-izq.png"))
 		
 		mapaDeParedes.levantarParedDe(10, game.at(2,1), arriba)
 		mapaDeParedes.levantarParedDe(7, game.at(4,2), arriba)
@@ -340,6 +367,49 @@ object laberintoTres {
 	}
 	
 	method levantarLaberinto() {
+		
+		game.addVisual(new Pokeball(position = game.at(11,7), nivelActual = self))
+		
+		//////// BAYAS Y TRAMPAS
+		game.addVisual(new BayaFrambu(position = game.at(2,1)))
+		game.addVisual(new BayaFrambu(position = game.at(1,10)))
+		game.addVisual(new BayaFrambu(position = game.at(9,2)))
+		game.addVisual(new BayaFrambu(position = game.at(11,11)))
+		game.addVisual(new BayaFrambu(position = game.at(13,1)))
+		
+		game.addVisual(new BayaLatano(position = game.at(1,11)))
+		game.addVisual(new BayaLatano(position = game.at(7,3)))
+		game.addVisual(new BayaLatano(position = game.at(7,7)))
+		game.addVisual(new BayaLatano(position = game.at(17,7)))
+		game.addVisual(new BayaLatano(position = game.at(17,11)))
+		
+		game.addVisual(new BayaPinia(position = game.at(11,6)))
+		game.addVisual(new BayaPinia(position = game.at(11,9)))
+		game.addVisual(new BayaPinia(position = game.at(15,3)))
+		game.addVisual(new BayaPinia(position = game.at(16,11)))
+		game.addVisual(new BayaPinia(position = game.at(18,7)))
+		game.addVisual(new BayaPinia(position = game.at(13,5)))
+		
+		game.addVisual(new Trampa(position = game.at(4,1), energiaQueBrinda = -25, defensaQueBrinda = -10))
+		game.addVisual(new Trampa(position = game.at(5,5), energiaQueBrinda = -15, defensaQueBrinda = -15))
+		game.addVisual(new Trampa(position = game.at(11,5), energiaQueBrinda = -10, defensaQueBrinda = -25))
+		game.addVisual(new Trampa(position = game.at(11,8), energiaQueBrinda = -10, defensaQueBrinda = -20))
+		game.addVisual(new Trampa(position = game.at(18,1), energiaQueBrinda = -5, defensaQueBrinda = -5))
+		
+		//////// ENEMIGOS
+		
+		game.addVisual(new PokemonGuardia(position = game.at(8,1), energia = 300, pokemon = "magnemite-"))
+		game.addVisual(new PokemonGuardia(position = game.at(16,3), energia = 300, pokemon = "scyther-"))
+		game.addVisual(new PokemonGuardia(position = game.at(12,7), energia = 300, pokemon = "magnemite-"))
+		game.addVisual(new PokemonGuardia(position = game.at(2,7), energia = 300, pokemon = "scyther-"))
+		game.addVisual(new PokemonGuardia(position = game.at(16,9), energia = 300, pokemon = "magnemite-"))
+		game.addVisual(new PokemonGuardia(position = game.at(6,11), energia = 300, pokemon = "scyther-"))
+		game.addVisual(new Pokemon(position = game.at(11,3), energia = 100, image = "scyther-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(4,5), energia = 100, image = "magnemite-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(15,5), energia = 100, image = "scyther-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(14,11), energia = 100, image = "magnemite-izq.png"))
+		
+		
 		mapaDeParedes.levantarParedDe(3, game.at(2,2), derecha)
 		mapaDeParedes.levantarParedDe(2, game.at(4,3), arriba)
 		
@@ -385,9 +455,51 @@ object laberintoTres {
 }
 
 object laberintoCuatro {
-	method pasarDeLaberinto() {	}
+	method pasarDeLaberinto() { 
+		entrenador.meEncontro(charmander)
+	}
 	
 	method levantarLaberinto() {
+		game.addVisual(entrenador)
+		
+		//////// BAYAS Y TRAMPAS
+		game.addVisual(new BayaFrambu(position = game.at(1,4)))
+		game.addVisual(new BayaFrambu(position = game.at(3,2)))
+		game.addVisual(new BayaFrambu(position = game.at(6,1)))
+		game.addVisual(new BayaFrambu(position = game.at(9,5)))
+		game.addVisual(new BayaFrambu(position = game.at(13,5)))
+		
+		game.addVisual(new BayaLatano(position = game.at(1,10)))
+		game.addVisual(new BayaLatano(position = game.at(3,9)))
+		game.addVisual(new BayaLatano(position = game.at(15,11)))
+		//game.addVisual(new BayaLatano(position = game.at()))
+		//game.addVisual(new BayaLatano(position = game.at()))
+		
+		game.addVisual(new BayaPinia(position = game.at(3,7)))
+		game.addVisual(new BayaPinia(position = game.at(11,2)))
+		game.addVisual(new BayaPinia(position = game.at(18,2)))
+		game.addVisual(new BayaPinia(position = game.at(18,6)))
+		
+		game.addVisual(new Trampa(position = game.at(5,1), energiaQueBrinda = -25, defensaQueBrinda = -10))
+		game.addVisual(new Trampa(position = game.at(7,11), energiaQueBrinda = -15, defensaQueBrinda = -15))
+		game.addVisual(new Trampa(position = game.at(10,1), energiaQueBrinda = -10, defensaQueBrinda = -25))
+		game.addVisual(new Trampa(position = game.at(13,9), energiaQueBrinda = -10, defensaQueBrinda = -20))
+		game.addVisual(new Trampa(position = game.at(17,1), energiaQueBrinda = -5, defensaQueBrinda = -5))
+		
+		//////// ENEMIGOS
+		
+		game.addVisual(new PokemonGuardia(position = game.at(4,11), energia = 300, pokemon = "onix-"))
+		game.addVisual(new PokemonGuardia(position = game.at(11,9), energia = 300, pokemon = "jigglypuff-"))
+		game.addVisual(new PokemonGuardia(position = game.at(14,5), energia = 300, pokemon = "onix-"))
+		game.addVisual(new Pokemon(position = game.at(6,5), energia = 100, image = "onix-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(7,7), energia = 100, image = "jigglypuff-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(7,9), energia = 100, image = "onix-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(9,11), energia = 100, image = "jigglypuff-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(12,3), energia = 100, image = "onix-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(14,9), energia = 100, image = "jigglypuff-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(17,11), energia = 100, image = "onix-izq.png"))
+		game.addVisual(new Pokemon(position = game.at(18,4), energia = 100, image = "jigglypuff-izq.png"))
+		
 		mapaDeParedes.levantarParedDe(9, game.at(2,2), arriba)
 		mapaDeParedes.levantarParedDe(2, game.at(4,1), arriba)
 		mapaDeParedes.levantarParedDe(2, game.at(4,4), arriba)

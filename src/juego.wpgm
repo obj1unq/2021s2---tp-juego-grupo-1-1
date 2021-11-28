@@ -3,7 +3,6 @@ import inicio.*
 import wollok.game.*
 
 program juego {
-  
 	game.title("Pokemon-atrápalos ya!")
 	game.height(13)
 	game.width(20)
