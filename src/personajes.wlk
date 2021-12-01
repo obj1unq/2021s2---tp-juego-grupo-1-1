@@ -98,15 +98,13 @@ object charmander {
 	method dispararFuego() {
 		    self.validarGolpe()
 			const fuego = new Fuego()
-			fuego.animacionDeFuego()
-//			game.onCollideDo(fuego, {objeto => fuego.meEncontre(objeto)})		
+			fuego.animacionDeFuego()	
 	}
 	
 	method atacarConGarra() {
 		    self.validarGolpe()
 			const ataqueGarra = new GarraMetal()
 			ataqueGarra.animacionDeGarra()
-//			game.onCollideDo(ataqueGarra, {objeto => ataqueGarra.meEncontre(objeto)})
 	}
 	
 	method validarGolpe(){
@@ -304,10 +302,6 @@ class Ataque {
 		game.schedule(500, { => game.removeVisual(self) })
 	}
 	
-
-//    method estaEnLaMismaPosicion(algo) {  ///////
-//		return self.position() == algo.position()
-//	}
 	
 	method atacar(){
 		game.addVisual(self)

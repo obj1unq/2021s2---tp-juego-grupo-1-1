@@ -60,7 +60,7 @@ class Pared {
 	
 	method image() = "pared.jpg"
 
-//	method desaparecer() { }   
+	method recibirAtaqueDe(pokemon) { }   
 	
 	method obstruyeElCamino() = true
 	

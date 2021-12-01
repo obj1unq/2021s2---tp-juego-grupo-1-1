@@ -61,7 +61,8 @@ describe "situaciones contra pokemons, medallas y nivel" {
 		const gengarEnGuardia = game.uniqueCollider(charmander)
 		
 		gengarEnGuardia.recibirAtaqueDe(charmander)
-		assert.equals(60, gengarEnGuardia.energia())
+		assert.equals(110, gengarEnGuardia.energia())
+		gengarEnGuardia.recibirAtaqueDe(charmander)
 		gengarEnGuardia.recibirAtaqueDe(charmander)
 		gengarEnGuardia.recibirAtaqueDe(charmander)
 		assert.that(gengarEnGuardia.estoyDebilitado())
