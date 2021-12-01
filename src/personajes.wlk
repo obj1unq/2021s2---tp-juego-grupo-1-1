@@ -209,6 +209,8 @@ class PokemonGuardia inherits Pokemon {
 			charmander.estoyEnCombate(false)
 	}
 	
+	
+	
 	// LOOP MOVIMIENTO
 	
 	method moverHastaEntrarEnCombate() {
@@ -223,9 +225,15 @@ class PokemonGuardia inherits Pokemon {
 	// MOVIMIENTOS
 	 
 	method moverSigPosicion() {
-		if(self.tengoEnemigoAlFrente()){
+		
+	    if(self.tengoEnemigoAlFrente()){
 			estoyEnCombate = true
-		} else {
+		} 
+		else if(self.meAtacaronPorDetras()){
+			direccion = direccion.opuesta()
+			estoyEnCombate = true
+		}
+		else {
 			self.avanzarUnPaso()
 		}
 	}
@@ -234,12 +242,19 @@ class PokemonGuardia inherits Pokemon {
 		if(self.hayObstaculoAlFrente()) {
 			direccion = direccion.opuesta()
 		}
+		
 		position = direccion.siguiente(position)
 	}
 	
 	method tengoEnemigoAlFrente() {
 		const alFrente = game.getObjectsIn(direccion.siguiente(position))
 		return alFrente.contains(charmander)
+	}
+	
+	
+	method meAtacaronPorDetras(){
+		const atras = game.getObjectsIn(direccion.opuesta().siguiente(position))
+		return atras.contains(charmander)
 	}
 	
 	method hayObstaculoAlFrente() {
@@ -252,6 +267,7 @@ class PokemonGuardia inherits Pokemon {
 		if(estoyEnCombate) { game.removeTickEvent(self.nombreMovimiento())  }
 	}
 	
+
 	
 	method initialize() {
 		self.moverHastaEntrarEnCombate()
