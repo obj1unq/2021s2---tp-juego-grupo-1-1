@@ -41,8 +41,8 @@ object charmander {
 		ataque = ataque + elemento.ataqueQueBrinda()
 	}
 	
-	method meEncontro(elemento) {
-		return elemento.meEncontro(self)	
+	method meEncontre(elemento) {
+		return elemento.meEncontre(self)	
 	}
 	
 	method estoyVivo(){
@@ -99,15 +99,14 @@ object charmander {
 		    self.validarGolpe()
 			const fuego = new Fuego()
 			fuego.animacionDeFuego()
-			game.onCollideDo(fuego, {objeto => fuego.meEncontro(objeto)})
-		
+//			game.onCollideDo(fuego, {objeto => fuego.meEncontre(objeto)})		
 	}
 	
 	method atacarConGarra() {
 		    self.validarGolpe()
 			const ataqueGarra = new GarraMetal()
 			ataqueGarra.animacionDeGarra()
-			game.onCollideDo(ataqueGarra, {objeto => ataqueGarra.meEncontro(objeto)})
+//			game.onCollideDo(ataqueGarra, {objeto => ataqueGarra.meEncontre(objeto)})
 	}
 	
 	method validarGolpe(){
@@ -155,34 +154,40 @@ object charmander {
 class Pokemon {
 	var property position 
 	var property energia 
-	var property direccion = #{derecha, izquierda}.anyOne()
+	var property direccion = derecha
 	var property estoyEnCombate = false
 	const property image
 	
 	method obstruyeElCamino() = false
 	
-	method desaparecer() { 
+	method recibirAtaqueDe(pokemonEnemigo) { 
 		game.say(self,"Entre en combate!")
-		charmander.estoyEnCombate(true)
-		self.restarEnergiaTrasAtaque()
-		self.perder()
+		pokemonEnemigo.estoyEnCombate(true)
+		self.restarEnergiaTrasAtaque(pokemonEnemigo)
+		self.perdiCombateCon(pokemonEnemigo)
 	}
 	
-	method restarEnergiaTrasAtaque() {
-		energia = (energia - charmander.ataque()).max(0)
+	method restarEnergiaTrasAtaque(pokemonEnemigo) {
+		energia = (energia - pokemonEnemigo.ataque()).max(0)
 	}
 	
-	method meEncontro(unPoke){
-		game.say(self,"Te atrapé")
-		unPoke.energia(0)
-		unPoke.perder()	
-	}	
-	
+	method perdiCombateCon(pokemon){
+		if(self.estoyDebilitado()){
+			pokemon.estoyEnCombate(false)
+			self.perder()
+		}
+	}
+		
 	method perder(){
 		if (self.estoyDebilitado()){
-			charmander.estoyEnCombate(false)
 			game.removeVisual(self)
 		}
+	}
+	
+	method meEncontre(pokemonEnemigo){
+		game.say(self,"Te atrapé")
+		pokemonEnemigo.energia(0)
+		pokemonEnemigo.perder()	
 	}
 	
 	method estoyDebilitado(){
@@ -203,8 +208,8 @@ class PokemonGuardia inherits Pokemon {
 		return image + self.sufijo() + ".png"
 	}
 	
-	override method desaparecer() { 
-		super()
+	override method recibirAtaqueDe(pokemonEnemigo) { 
+		super(pokemonEnemigo)
 		self.comprobarCombate()
 	}
 	
@@ -212,8 +217,6 @@ class PokemonGuardia inherits Pokemon {
 		if (not self.tengoEnemigoAlFrente())
 			charmander.estoyEnCombate(false)
 	}
-	
-	
 	
 	// LOOP MOVIMIENTO
 	
@@ -271,8 +274,6 @@ class PokemonGuardia inherits Pokemon {
 		if(estoyEnCombate) { game.removeTickEvent(self.nombreMovimiento())  }
 	}
 	
-
-	
 	method initialize() {
 		self.moverHastaEntrarEnCombate()
 	}
@@ -288,31 +289,29 @@ class Ataque {
 	}	
 	
 	method direccionDeAtaque() {
-		return if(self.estaEnDireccionInadecuada()) { derecha } else { charmander.direccion() }
+		return if(self.noEstaEnDireccionPorDefecto()) { derecha } else { charmander.direccion() }
 	}
 	
-	method estaEnDireccionInadecuada() {
+	method noEstaEnDireccionPorDefecto() {
 		return charmander.direccion() != izquierda
 	}
 	
-	method meEncontro(elemento) {
-		elemento.desaparecer()
+	method meEncontre(elemento) {
+		elemento.recibirAtaqueDe(charmander)
 	}
 	
 	method desaparecer() {
 		game.schedule(500, { => game.removeVisual(self) })
 	}
 	
-//	method atacar(elemento) {
-//		elemento.desaparecer()
-//   }
-   
-    method estaEnLaMismaPosicion(algo) {  ///////
-		return self.position() == algo.position()
-	}
+
+//    method estaEnLaMismaPosicion(algo) {  ///////
+//		return self.position() == algo.position()
+//	}
 	
 	method atacar(){
 		game.addVisual(self)
+		game.onCollideDo(self, {objeto => self.meEncontre(objeto)})
 	    charmander.puedoPegar(false)
 		game.schedule(500, { charmander.puedoPegar(true) })
 		self.desaparecer()
@@ -342,8 +341,10 @@ class Fuego inherits Ataque {
 	
 	method animacionDeFuego(){
 		self.atacar()
+		
 	}
 }
+	
 
 class Pokeball {
 
@@ -358,12 +359,12 @@ class Pokeball {
 		return false
 	}
 	
-	method meEncontro(objeto){
+	method meEncontre(protagonista){
 		nivelActual.pasarDeLaberinto()
 	}
 	
-	method desaparecer() {
-		
+	method recibirAtaqueDe() {
+		// Sin efecto 
 	}
 }
 
@@ -378,21 +379,11 @@ object entrenador {
 		return false
 	}
 	
-	method meEncontro(pokemon){
+	method meEncontre(pokemon){
 		pokemon.ganar()
 	}
 	
-	method desaparecer() {}
-}
-
-class Medalla {
-	var property position 
-	const property image
-	
-	method obstruyeElCamino() = false
-	
-	method meEncontro(elemento) {
-		charmander.agregarMedalla(self)
-		game.removeVisual(self)	
-	}	
+	method recibirAtaqueDe(pokemon) {
+		// Sin efecto 
+	}
 }

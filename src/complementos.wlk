@@ -1,4 +1,5 @@
 import wollok.game.*
+import personajes.*
 
 object izquierda {
 	method siguiente(posicion) {
@@ -59,12 +60,10 @@ class Pared {
 	
 	method image() = "pared.jpg"
 
-	method quemar(elemento) { }   ///////
-	method desaparecer() { }   ///////
+//	method desaparecer() { }   
 	
 	method obstruyeElCamino() = true
 	
-	method meEncontro(pokemon) { }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +81,7 @@ class Baya {
     	game.removeVisual(self)
     }
     
-    method meEncontro(pokemon) {
+    method meEncontre(pokemon) {
     	self.estaFeliz(pokemon)
     	self.desaparecer()
     }
@@ -98,9 +97,9 @@ class BayaLatano inherits Baya {
 	
 	override method image() = "latano.png"
 	 
-	method defensaQueBrinda() = 25
+	method defensaQueBrinda() = 10
 	
-	override method meEncontro(pokemon){
+	override method meEncontre(pokemon){
 		super(pokemon)
 		pokemon.modificarDefensa(self)
 	}
@@ -111,9 +110,9 @@ class BayaFrambu inherits Baya {
 	
 	override method image() = "baya.png"
 	
-	method energiaQueBrinda() = 50
+	method energiaQueBrinda() = 40
 	
-	override method meEncontro(pokemon){
+	override method meEncontre(pokemon){
 		super(pokemon)
 		pokemon.modificarEnergia(self)	
 	}
@@ -123,9 +122,9 @@ class BayaPinia inherits Baya {
 	
 	override method image() = "pinia.png"
 	
-	method ataqueQueBrinda() = 30
+	method ataqueQueBrinda() = 5
 	
-	override method meEncontro(pokemon){
+	override method meEncontre(pokemon){
 		super(pokemon)
 		pokemon.modificarAtaque(self)
 	}
@@ -144,14 +143,31 @@ class Trampa {
     
     method obstruyeElCamino() = false
     
-    method desaparecer() {
+    method recibirAtaqueDe(pokemon) {
     	game.removeVisual(self)
     }
     
-    method meEncontro(pokemon) {
+    method meEncontre(pokemon) {
     	pokemon.modificarEnergia(self)    	
 	    pokemon.modificarDefensa(self)
 	    pokemon.perder()
    }
+}
+ 
+ 
+class Medalla {
+	var property position 
+	const property image
+	
+	method obstruyeElCamino() = false
+	
+	method meEncontre(pokemon) {
+		charmander.agregarMedalla(self)
+		game.removeVisual(self)	
+	}
+	
+	method recibirAtaqueDe(pokemon) {
+		// Sin efecto 
+	}	
 }
  

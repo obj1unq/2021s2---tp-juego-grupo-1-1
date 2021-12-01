@@ -23,18 +23,18 @@ describe "Pokemon test" {
   }
 	
   test "Charmander cae en la trampa y pierde energía" {
-    charmander.meEncontro(trampaEnCamino)
+    charmander.meEncontre(trampaEnCamino)
     assert.equals(20,charmander.energia())
     assert.equals(20,charmander.defensa())
   }
    
   test "Charmander ataque valores máximos" {
   	charmander.modificarEnergia(bayaFrambu)
-  	assert.equals(150, charmander.energia())
+  	assert.equals(140, charmander.energia())
   	charmander.modificarAtaque(bayaPinia)
-  	assert.equals(70, charmander.ataque())
+  	assert.equals(45, charmander.ataque())
   	charmander.modificarDefensa(bayaLatano)
-  	assert.equals(125, charmander.defensa())
+  	assert.equals(110, charmander.defensa())
   }
   
   test "Perdí" {
@@ -43,7 +43,7 @@ describe "Pokemon test" {
   }
   
   test "oponente recibe danho de ataque" {
-		combatiente.restarEnergiaTrasAtaque()
+		combatiente.restarEnergiaTrasAtaque(charmander)
 		assert.equals(360, combatiente.energia())
 	}
 }
@@ -60,29 +60,29 @@ describe "situaciones contra pokemons, medallas y nivel" {
 		charmander.position(game.at(17,10))
 		const gengarEnGuardia = game.uniqueCollider(charmander)
 		
-		gengarEnGuardia.desaparecer()
+		gengarEnGuardia.recibirAtaqueDe(charmander)
 		assert.equals(60, gengarEnGuardia.energia())
-		gengarEnGuardia.desaparecer()
-		gengarEnGuardia.desaparecer()
+		gengarEnGuardia.recibirAtaqueDe(charmander)
+		gengarEnGuardia.recibirAtaqueDe(charmander)
 		assert.that(gengarEnGuardia.estoyDebilitado())
 	}
 	
 	test "machamp atrapo a charmander" {
 		charmander.position(game.at(7,10))
-		charmander.meEncontro(game.uniqueCollider(charmander))
+		charmander.meEncontre(game.uniqueCollider(charmander))
 		assert.equals(0, charmander.energia())
 	}
 	
 	test "encuentra medalla" {
 		charmander.position(game.at(1,7))
-		charmander.meEncontro(game.uniqueCollider(charmander))
+		charmander.meEncontre(game.uniqueCollider(charmander))
 		assert.equals(1, charmander.medallasRecogidas().size())
 	}
 	
 	test "pasa a siguiente nivel" {
 		// Al pasar de nivel se resetea la posicion de charmander y se verifica que suceda
 		charmander.position(game.at(12,3))
-		charmander.meEncontro(game.uniqueCollider(charmander))
+		charmander.meEncontre(game.uniqueCollider(charmander))
 		assert.equals(game.at(1,1), charmander.position())
 	}
 }
