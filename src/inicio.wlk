@@ -35,6 +35,34 @@ object instrucciones {
 	}
 }
 
+object pantallaFinal {
+	
+	method image() {
+		return "pantallaFinal.jpg"
+	}
+	
+	method position(){
+		return game.origin()
+	}
+	
+	method iniciar() {
+		game.clear()
+		game.addVisual(self)
+		medallasObtenidas.exponer()
+	}
+}
+
+object medallasObtenidas {
+	var inicioExposicion = game.at(10,11)
+	
+	method exponer(){
+		charmander.medallasRecogidas().forEach({medalla =>
+											  game.addVisualIn(medalla, inicioExposicion)
+											  inicioExposicion = abajo.siguiente(inicioExposicion)
+		})
+	}
+}
+
 class Laberinto {
 	const property nivelActual
 	
@@ -120,8 +148,9 @@ object laberintoCero {
 	}
 		
 	method levantarLaberinto() {
-		
+	
 		game.addVisual(new Pokeball(position = game.at(12,3), nivelActual = self))
+		game.addVisual(new Medalla(position = game.at(1,7), image= "medalla 1.png"))
 		
 		//////// BAYAS Y TRAMPAS
 		game.addVisual(new BayaFrambu(position = game.at(6,11)))
@@ -136,7 +165,7 @@ object laberintoCero {
 		game.addVisual(new BayaLatano(position = game.at(18,10)))
 		game.addVisual(new BayaLatano(position = game.at(18,11)))
 		
-		game.addVisual(new BayaPinia(position = game.at(1,7)))
+//		game.addVisual(new BayaPinia(position = game.at(1,7)))
 		game.addVisual(new BayaPinia(position = game.at(1,3)))
 		game.addVisual(new BayaPinia(position = game.at(2,7)))
 		game.addVisual(new BayaPinia(position = game.at(8,3)))
@@ -216,6 +245,9 @@ object laberintoUno {
 	
 	method levantarLaberinto() {
 		game.addVisual(new Pokeball(position = game.at(18,3), nivelActual = self))
+		
+		game.addVisual(new Medalla(position = game.at(7,11), image= "medalla 2.png"))
+		game.addVisual(new Medalla(position = game.at(1,7), image= "medalla 3.png"))
 		
 		//////// BAYAS Y TRAMPAS
 		game.addVisual(new BayaFrambu(position = game.at(7,6)))
@@ -305,6 +337,8 @@ object laberintoDos {
 	method levantarLaberinto() {
 		game.addVisual(new Pokeball(position = game.at(7,5), nivelActual = self))
 		
+		game.addVisual(new Medalla(position = game.at(3,7), image= "medalla 4.png"))
+		
 		//////// BAYAS Y TRAMPAS
 		game.addVisual(new BayaFrambu(position = game.at(1,4)))
 		game.addVisual(new BayaFrambu(position = game.at(3,4)))
@@ -370,6 +404,9 @@ object laberintoTres {
 	method levantarLaberinto() {
 		
 		game.addVisual(new Pokeball(position = game.at(11,7), nivelActual = self))
+		
+		game.addVisual(new Medalla(position = game.at(13,3), image= "medalla 5.png"))
+		game.addVisual(new Medalla(position = game.at(7,9), image= "medalla 6.png"))
 		
 		//////// BAYAS Y TRAMPAS
 		game.addVisual(new BayaFrambu(position = game.at(2,1)))
@@ -462,6 +499,9 @@ object laberintoCuatro {
 	
 	method levantarLaberinto() {
 		game.addVisual(entrenador)
+		
+		game.addVisual(new Medalla(position = game.at(17,2), image= "medalla 7.png"))
+		game.addVisual(new Medalla(position = game.at(11,11), image= "medalla 8.png"))
 		
 		//////// BAYAS Y TRAMPAS
 		game.addVisual(new BayaFrambu(position = game.at(1,4)))

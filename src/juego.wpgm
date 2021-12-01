@@ -8,6 +8,6 @@ program juego {
 	game.width(20)
 	game.cellSize(50)
 	game.boardGround("mapaGrande.jpg")
-	menu.iniciar()
+	config.labTres().iniciar()
 	game.start()
 } 

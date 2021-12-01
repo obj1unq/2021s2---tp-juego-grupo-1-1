@@ -12,6 +12,7 @@ object charmander {
 	var property direccion = izquierda
 	var property estoyEnCombate = false
 	var property puedoPegar = true
+	const property medallasRecogidas = #{}
 	
 	method hablar() = "Char char"
 	
@@ -50,11 +51,14 @@ object charmander {
 	
 	method ganar(){
 		self.terminar("Gané")
+		game.schedule(3000, {pantallaFinal.iniciar()})
+		game.schedule(7000, {game.stop()})
 	}
 	
 	method perder() {
 		if (not self.estoyVivo()) { 
 			self.terminar("Perdí")
+			game.schedule(5000, {game.stop()})
 		}
 	}
 	
@@ -62,7 +66,6 @@ object charmander {
 		    puedoPegar = false
 			game.say(self, mensaje)
 			game.removeTickEvent("DANIOENEMIGO")
-			game.schedule(3000, {game.stop()})
 	}
 	
 	method mover(dir) {
@@ -73,21 +76,23 @@ object charmander {
 	}
 	
 	method puedoMover(dir){
-		return self.estoyVivo() && not self.hayUnObstaculoAl(dir)  
+		return self.estoyVivo() && self.nohayObstaculoAlFrente(dir) && self.fueraDeCombate()
 	}
+	
 	
 	method irA(nuevaPosicion) {
 		position = nuevaPosicion
 	}
+
 	
-	method hayUnObstaculoAl(dir){
-		return self.hayObstaculoAlFrente(dir) || ( estoyEnCombate || not puedoPegar)
+	method fueraDeCombate() {
+		return (not estoyEnCombate) && puedoPegar  
 	}
 	
-	method hayObstaculoAlFrente(dir) {
+	method nohayObstaculoAlFrente(dir) {
 		var obstaculos = game.getObjectsIn(dir.siguiente(position))
 		obstaculos = obstaculos.filter({obstaculo => obstaculo.obstruyeElCamino()})
-		return not obstaculos.isEmpty()
+		return obstaculos.isEmpty()
 	}
 	
 	method dispararFuego() {
@@ -114,16 +119,10 @@ object charmander {
 	
 	method validarEstado(){
 			if(!self.estoyVivo()){
-			self.error("Estoy muerto")
+				self.error("Estoy muerto")
 		}
 	}
-	/* 
-	method validarGolpe(){
-	    if(!self.estoyVivo || !puedoPegar){
-			self.error("No puedo atacar")
-		}
-	}
-	*/
+	
 	
 	method danioARecibir(){
 		return (500..1000).anyOne() / self.defensa()
@@ -143,6 +142,11 @@ object charmander {
 		}	
 	}
 	
+	method agregarMedalla(medalla) {
+		medallasRecogidas.add(medalla)
+	}
+	
+	
 	method reiniciarPosicion() {
 		self.position(game.at(1,1))	
 	}	 
@@ -155,11 +159,7 @@ class Pokemon {
 	var property estoyEnCombate = false
 	const property image
 	
-//	method image() 
-	
 	method obstruyeElCamino() = false
-	
-//	method quemar(elemento) { }   ///////
 	
 	method desaparecer() { 
 		game.say(self,"Entre en combate!")
@@ -167,23 +167,25 @@ class Pokemon {
 		energia = (energia - charmander.ataque()).max(0)
 		self.perder()
 	}
+	
 	method meEncontro(unPoke){
 		game.say(self,"Te atrapé")
 		unPoke.energia(0)
-		unPoke.perder()
-		
+		unPoke.perder()	
 	}	
+	
 	method perder(){
-		if (not self.estoyVivo()){
-				charmander.estoyEnCombate(false)
-				game.removeVisual(self)
-				
+		if (self.estoyDebilitado()){
+			charmander.estoyEnCombate(false)
+			game.removeVisual(self)
 		}
 	}
 	
-	method estoyVivo(){
-		return energia > 0
+	method estoyDebilitado(){
+		return energia == 0
 	}
+	
+	
 }
 
 
@@ -195,6 +197,16 @@ class PokemonGuardia inherits Pokemon {
 	
 	override method image(){
 		return image + self.sufijo() + ".png"
+	}
+	
+	override method desaparecer() { 
+		super()
+		self.comprobarCombate()
+	}
+	
+	method comprobarCombate() {
+		if (not self.tengoEnemigoAlFrente())
+			charmander.estoyEnCombate(false)
 	}
 	
 	// LOOP MOVIMIENTO
@@ -211,9 +223,8 @@ class PokemonGuardia inherits Pokemon {
 	// MOVIMIENTOS
 	 
 	method moverSigPosicion() {
-		if(self.meEncuentroEnemigo()){
+		if(self.tengoEnemigoAlFrente()){
 			estoyEnCombate = true
-			charmander.estoyEnCombate(true)
 		} else {
 			self.avanzarUnPaso()
 		}
@@ -226,7 +237,7 @@ class PokemonGuardia inherits Pokemon {
 		position = direccion.siguiente(position)
 	}
 	
-	method meEncuentroEnemigo() {
+	method tengoEnemigoAlFrente() {
 		const alFrente = game.getObjectsIn(direccion.siguiente(position))
 		return alFrente.contains(charmander)
 	}
@@ -283,7 +294,7 @@ class Ataque {
 	method atacar(){
 		game.addVisual(self)
 	    charmander.puedoPegar(false)
-		game.schedule(600, { charmander.puedoPegar(true) })
+		game.schedule(500, { charmander.puedoPegar(true) })
 		self.desaparecer()
 	}
 	
@@ -340,7 +351,7 @@ object entrenador {
 	const property position = game.at(16,9)
 	
 	method image() { 
-		return "ash.png"
+		return "red.png"
 	}
 	
 	method obstruyeElCamino() {
@@ -351,8 +362,21 @@ object entrenador {
 		pokemon.ganar()
 	}
 	
-	method desaparecer() {
-		
-	}
+	method desaparecer() {}
 }
+
+class Medalla {
+	var property position 
+	const property image
+	
+	method obstruyeElCamino() = false
+	
+	method meEncontro(elemento) {
+		charmander.agregarMedalla(self)
+		game.removeVisual(self)	
+	}
+	
+	
+}
+
  
