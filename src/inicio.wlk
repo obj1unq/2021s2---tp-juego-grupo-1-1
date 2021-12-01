@@ -494,13 +494,6 @@ object laberintoCuatro {
 	method levantarLaberinto() {
 		game.addVisual(entrenador)
 		
-		game.addVisual(new Medalla(position = game.at(9,7), image= "medalla 1.png"))
-		game.addVisual(new Medalla(position = game.at(10,7), image= "medalla 2.png"))
-		game.addVisual(new Medalla(position = game.at(11,7), image= "medalla 3.png"))
-		game.addVisual(new Medalla(position = game.at(12,7), image= "medalla 4.png"))
-		game.addVisual(new Medalla(position = game.at(13,7), image= "medalla 5.png"))
-		game.addVisual(new Medalla(position = game.at(14,7), image= "medalla 6.png"))
-		
 		game.addVisual(new Medalla(position = game.at(17,2), image= "medalla 7.png"))
 		game.addVisual(new Medalla(position = game.at(11,11), image= "medalla 8.png"))
 		
