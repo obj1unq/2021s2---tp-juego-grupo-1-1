@@ -2,6 +2,9 @@ Buscando al entrenador perdido.
 
 ## Equipo de desarrollo
 
+Callegaris Belén
+Jiménez Diego
+Rivero Carlos
 
 ## Juego
 
