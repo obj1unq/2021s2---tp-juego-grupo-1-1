@@ -1,4 +1,4 @@
-import personajes.*
+import personajes.* 
 import inicio.*
 import wollok.game.*
 

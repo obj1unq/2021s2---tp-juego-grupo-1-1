@@ -176,8 +176,7 @@ class Pokemon {
 	method perder(){
 		if (not self.estoyVivo()){
 				charmander.estoyEnCombate(false)
-				game.removeVisual(self)
-				
+				game.removeVisual(self)			
 		}
 	}
 	
@@ -355,4 +354,3 @@ object entrenador {
 		
 	}
 }
- 

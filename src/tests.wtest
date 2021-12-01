@@ -6,8 +6,11 @@ import inicio.*
 
 describe "Pokemon test" {
 
-  const trampaEnCamino = new Trampa(position = game.at(7,6), energiaQueBrinda = -15, defensaQueBrinda = -15)
-  
+  const trampaEnCamino = new Trampa(position = game.at(7,6), energiaQueBrinda = -80, defensaQueBrinda = -80)
+  const bayaFrambu = new BayaFrambu(position = game.at(8,6))
+  const bayaPinia = new BayaPinia(position = game.at(9,6))
+  const bayaLatano = new BayaLatano(position = game.at(10,6))
+    
   method initialize(){
     game.clear()
     game.addVisual(charmander)
@@ -17,9 +20,23 @@ describe "Pokemon test" {
 		assert.equals(charmander.position(), game.at(1,1))
   }
 	
-  test "Baya sube energia, trampa baja" {
+  test "Charmander cae en la trampa y pierde energía" {
     charmander.meEncontro(trampaEnCamino)
-    assert.equals(85,charmander.energia())
-    assert.equals(85,charmander.defensa())
+    assert.equals(20,charmander.energia())
+    assert.equals(20,charmander.defensa())
+  }
+   
+  test "Charmander ataque valores máximos" {
+  	charmander.modificarEnergia(bayaFrambu)
+  	assert.equals(150, charmander.energia())
+  	charmander.modificarAtaque(bayaPinia)
+  	assert.equals(70, charmander.ataque())
+  	charmander.modificarDefensa(bayaLatano)
+  	assert.equals(125, charmander.defensa())
+  }
+  
+  test "Perdí" {
+  	charmander.energia(0)
+  	assert.throwsException({charmander.validarEstado()})
   }
 }

@@ -244,7 +244,6 @@ object laberintoUno {
 		//////// ENEMIGOS
 		
 		game.addVisual(new PokemonGuardia(position = game.at(3,1), energia = 100, image = "bulbasaur-"))
-		//game.addVisual(new PokemonGuardia(position = game.at(6,8), energia = 100, pokemon = "bulbasaur-"))
 		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 100, image = "bulbasaur-"))
 		game.addVisual(new PokemonGuardia(position = game.at(13,9), energia = 100, image = "bulbasaur-"))
 		game.addVisual(new PokemonGuardia(position = game.at(4,6), energia = 300, image = "magmar-"))
@@ -343,7 +342,6 @@ object laberintoDos {
 		game.addVisual(new PokemonGuardia(position = game.at(5,9), energia = 100, image = "kadabra-"))
 		game.addVisual(new PokemonGuardia(position = game.at(10,5), energia = 300, image = "kadabra-"))
 		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 300, image = "kadabra-"))
-		//game.addVisual(new Pokemon(position = game.at(11,5), energia = 300, image = "lapras-izq"))
 		game.addVisual(new Pokemon(position = game.at(13,1), energia = 100, image = "lapras-izq.png")) 
 		game.addVisual(new Pokemon(position = game.at(12,1), energia = 100, image = "kadabra-izq.png"))
 		game.addVisual(new Pokemon(position = game.at(14,11), energia = 100, image = "lapras-izq.png"))
@@ -473,8 +471,6 @@ object laberintoCuatro {
 		game.addVisual(new BayaLatano(position = game.at(1,10)))
 		game.addVisual(new BayaLatano(position = game.at(3,9)))
 		game.addVisual(new BayaLatano(position = game.at(15,11)))
-		//game.addVisual(new BayaLatano(position = game.at()))
-		//game.addVisual(new BayaLatano(position = game.at()))
 		
 		game.addVisual(new BayaPinia(position = game.at(3,7)))
 		game.addVisual(new BayaPinia(position = game.at(11,2)))
