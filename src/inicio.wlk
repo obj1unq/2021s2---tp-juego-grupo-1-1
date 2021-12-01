@@ -53,12 +53,12 @@ object pantallaFinal {
 }
 
 object medallasObtenidas {
-	var inicioExposicion = game.at(10,11)
+	var inicioExposicion = game.at(10,1)
 	
 	method exponer(){
 		charmander.medallasRecogidas().forEach({medalla =>
 											  game.addVisualIn(medalla, inicioExposicion)
-											  inicioExposicion = abajo.siguiente(inicioExposicion)
+											  inicioExposicion = derecha.siguiente(inicioExposicion)
 		})
 	}
 }
@@ -182,10 +182,6 @@ object laberintoCero {
 		
 		//////// ENEMIGOS
 		
-		/*game.addVisual(new Gengar(position = game.at(14,3), energia = 100))
-		game.addVisual(new Gengar(position = game.at(17,10), energia = 100))
-		game.addVisual(new Machamp(position = game.at(12,5), energia = 300))
-		game.addVisual(new Machamp(position = game.at(7,10), energia = 300))*/
 		game.addVisual(new PokemonGuardia(position = game.at(14,3), energia = 100, image = "gengar-"))
 		game.addVisual(new PokemonGuardia(position = game.at(17,10), energia = 100, image = "gengar-"))
 		game.addVisual(new PokemonGuardia(position = game.at(12,5), energia = 300, image = "machamp-"))
@@ -497,6 +493,13 @@ object laberintoCuatro {
 	
 	method levantarLaberinto() {
 		game.addVisual(entrenador)
+		
+		game.addVisual(new Medalla(position = game.at(9,7), image= "medalla 1.png"))
+		game.addVisual(new Medalla(position = game.at(10,7), image= "medalla 2.png"))
+		game.addVisual(new Medalla(position = game.at(11,7), image= "medalla 3.png"))
+		game.addVisual(new Medalla(position = game.at(12,7), image= "medalla 4.png"))
+		game.addVisual(new Medalla(position = game.at(13,7), image= "medalla 5.png"))
+		game.addVisual(new Medalla(position = game.at(14,7), image= "medalla 6.png"))
 		
 		game.addVisual(new Medalla(position = game.at(17,2), image= "medalla 7.png"))
 		game.addVisual(new Medalla(position = game.at(11,11), image= "medalla 8.png"))

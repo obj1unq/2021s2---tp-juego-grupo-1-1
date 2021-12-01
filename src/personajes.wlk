@@ -164,8 +164,12 @@ class Pokemon {
 	method desaparecer() { 
 		game.say(self,"Entre en combate!")
 		charmander.estoyEnCombate(true)
-		energia = (energia - charmander.ataque()).max(0)
+		self.restarEnergiaTrasAtaque()
 		self.perder()
+	}
+	
+	method restarEnergiaTrasAtaque() {
+		energia = (energia - charmander.ataque()).max(0)
 	}
 	
 	method meEncontro(unPoke){

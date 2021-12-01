@@ -10,6 +10,8 @@ describe "Pokemon test" {
   const bayaFrambu = new BayaFrambu(position = game.at(8,6))
   const bayaPinia = new BayaPinia(position = game.at(9,6))
   const bayaLatano = new BayaLatano(position = game.at(10,6))
+  
+  const combatiente = new Pokemon(position = game.at(1,2), energia = 400, image = "lapras-izq.png")
     
   method initialize(){
     game.clear()
@@ -39,4 +41,80 @@ describe "Pokemon test" {
   	charmander.energia(0)
   	assert.throwsException({charmander.validarEstado()})
   }
+  
+  test "oponente recibe danho de ataque" {
+		combatiente.restarEnergiaTrasAtaque()
+		assert.equals(360, combatiente.energia())
+	}
 }
+
+
+describe "situaciones contra pokemons, medallas y nivel" {
+	
+	method initialize() {
+		config.labCero().iniciar()
+		
+	}
+	
+	test "ataque sobre gengar hasta debilitarlo" {
+		charmander.position(game.at(17,10))
+		const gengarEnGuardia = game.uniqueCollider(charmander)
+		
+		gengarEnGuardia.desaparecer()
+		assert.equals(60, gengarEnGuardia.energia())
+		gengarEnGuardia.desaparecer()
+		gengarEnGuardia.desaparecer()
+		assert.that(gengarEnGuardia.estoyDebilitado())
+	}
+	
+	test "machamp atrapo a charmander" {
+		charmander.position(game.at(7,10))
+		charmander.meEncontro(game.uniqueCollider(charmander))
+		assert.equals(0, charmander.energia())
+	}
+	
+	test "encuentra medalla" {
+		charmander.position(game.at(1,7))
+		charmander.meEncontro(game.uniqueCollider(charmander))
+		assert.equals(1, charmander.medallasRecogidas().size())
+	}
+	
+	test "pasa a siguiente nivel" {
+		// Al pasar de nivel se resetea la posicion de charmander y se verifica que suceda
+		charmander.position(game.at(12,3))
+		charmander.meEncontro(game.uniqueCollider(charmander))
+		assert.equals(game.at(1,1), charmander.position())
+	}
+}
+
+describe "movimiento de pokemon guardias" {
+	
+	method initialize() {
+		config.labCero().iniciar()
+		charmander.position(game.at(12,5))
+	}
+	
+	test "direccion de machamp y avance" {
+		const machampEnGuardia = game.uniqueCollider(charmander)
+		assert.equals(derecha, machampEnGuardia.direccion())
+		charmander.position(game.at(1,1))
+		
+		6.times({i => machampEnGuardia.moverSigPosicion()})
+		assert.equals(game.at(18,5), machampEnGuardia.position())
+		
+		machampEnGuardia.moverSigPosicion()
+		assert.equals(izquierda, machampEnGuardia.direccion())
+		assert.equals(game.at(17,5), machampEnGuardia.position())
+	}
+	
+	test "encuentro con charmander" {
+		const machampEnGuardia = game.uniqueCollider(charmander)
+		
+		charmander.position(game.at(14, 5))
+		2.times({i => machampEnGuardia.moverSigPosicion()})
+		assert.that(machampEnGuardia.estoyEnCombate())
+	}
+}
+
+
+
